@@ -1,4 +1,4 @@
 email,password,expected
-test@test.com,password,Welcome
-admin@test.com,admin123,Welcome
-bad@test.com,wrong,Invalid credentials
+test@test.com,password,Dashboard
+admin@test.com,admin123,Dashboard
+wrong@test.com,badpass,Invalid

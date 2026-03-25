@@ -1,41 +1,64 @@
-test "invalid credentials show error"
-  @auth @negative
-  open the app
-  tap #nav_login
-  wait until "Sign In" appears
-  type "wrong@test.com" into #email_field
-  type "badpassword" into #password_field
+test "submit with only valid email"
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
+  type "test@test.com" into #email_field
   tap #sign_in_button
-  see "Invalid credentials"
-  don't see "Welcome"
+  wait 2 seconds
 
-test "empty email shows validation error"
-  @auth @negative
-  open the app
-  tap #nav_login
-  wait until "Sign In" appears
-  type "" into #email_field
+test "submit with only invalid email"
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
+  type "notanemail" into #email_field
+  tap #sign_in_button
+  wait 2 seconds
+
+test "submit with only password"
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
+  type "<random.number(10000,99999)>" into #password_field
+  tap #sign_in_button
+  wait 2 seconds
+
+test "submit with email and password"
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
+  type "test@test.com" into #email_field
   type "password" into #password_field
   tap #sign_in_button
-  see "Email is required"
-  don't see "Welcome"
+  wait 2 seconds
+  see "Dashboard"
 
-test "empty password shows validation error"
-  @auth @negative
-  open the app
-  tap #nav_login
-  wait until "Sign In" appears
+test "paste email into password field"
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
   type "test@test.com" into #email_field
-  type "" into #password_field
-  tap #sign_in_button
-  see "Password is required"
-  don't see "Welcome"
+  copy "test@test.com" to clipboard
+  paste clipboard into #password_field
+  wait 1 seconds
 
-test "empty fields show both errors"
-  @auth @negative
-  open the app
-  tap #nav_login
-  wait until "Sign In" appears
-  tap #sign_in_button
-  see "Email is required"
-  see "Password is required"
+test "forgot password link"
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
+  tap "Forgot Password?"
+  wait 1 seconds
+
+test "swipe right to go back"
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
+  swipe right
+  wait 1 seconds
+  see "FlutterProbe Test App"

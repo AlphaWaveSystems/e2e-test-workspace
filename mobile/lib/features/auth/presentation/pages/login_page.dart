@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     if (success && mounted) {
-      Navigator.pushReplacementNamed(context, Routes.dashboard);
+      Navigator.pushNamedAndRemoveUntil(context, Routes.dashboard, (route) => route.isFirst);
     }
   }
 

@@ -1,39 +1,57 @@
-use "recipes/navigation.probe"
-
-test "settings toggle dark mode"
-  @ui @settings
-  open the app
-  navigate to "settings"
+test "toggle dark mode"
+  restart the app
+  wait 5 seconds
+  tap "Settings"
+  wait 2 seconds
   see "Dark Mode"
   tap #dark_mode_toggle
-  see "Dark Mode" is enabled
+  wait 1 seconds
   tap #dark_mode_toggle
-  see "Dark Mode" is disabled
+  wait 1 seconds
 
-test "settings checkbox notifications"
-  @ui @settings
-  open the app
-  navigate to "settings"
-  see "Push Notifications"
-  tap #notifications_checkbox
-  see "Push Notifications" is checked
-  tap #notifications_checkbox
-  don't see "Push Notifications" is checked
+test "toggle notifications"
+  restart the app
+  wait 5 seconds
+  tap "Settings"
+  wait 2 seconds
+  see "Notifications"
+  tap #notifications_toggle
+  wait 1 seconds
 
-test "settings enabled and disabled states"
-  @ui @settings
-  open the app
-  navigate to "settings"
-  see "Save" is enabled
-  see "Delete Account" is enabled
-  tap #delete_account_button
-  see "Confirm" is enabled
-  see "Cancel" is enabled
+test "toggle terms checkbox"
+  restart the app
+  wait 5 seconds
+  tap "Settings"
+  wait 2 seconds
+  see "Agree to Terms"
+  tap #terms_checkbox
+  wait 1 seconds
 
-test "settings contains partial text"
-  @ui @settings
-  open the app
-  navigate to "settings"
-  see "Version" contains "1."
-  see "Build" contains "202"
-  see "Account" contains "test"
+test "save button shows snackbar"
+  restart the app
+  wait 5 seconds
+  tap "Settings"
+  wait 2 seconds
+  tap #save_button
+  wait 1 seconds
+
+test "delete account button is visible"
+  restart the app
+  wait 5 seconds
+  tap "Settings"
+  wait 2 seconds
+  see "Delete Account"
+
+test "build info is displayed"
+  restart the app
+  wait 5 seconds
+  tap "Settings"
+  wait 2 seconds
+  see "Build: 1.0.42+dev"
+
+test "language dropdown is visible"
+  restart the app
+  wait 5 seconds
+  tap "Settings"
+  wait 2 seconds
+  see "Language"

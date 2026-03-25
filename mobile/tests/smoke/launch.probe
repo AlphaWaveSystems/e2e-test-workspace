@@ -1,6 +1,8 @@
 test "app launches successfully"
   @smoke
   open the app
+  wait 1 seconds
   see "FlutterProbe Test App"
+  see "Welcome to the FlutterProbe Test App"
   see "Version 1.0"
   don't see "Error"

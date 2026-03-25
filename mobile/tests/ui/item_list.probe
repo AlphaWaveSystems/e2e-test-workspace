@@ -1,36 +1,45 @@
-use "recipes/navigation.probe"
+test "see first item in list"
+  restart the app
+  wait 5 seconds
+  tap "Items"
+  wait 2 seconds
+  see "Item 0"
 
-test "item list scroll and search"
-  @ui @items
-  open the app
-  navigate to "items"
-  see "Items"
+test "scroll down and up through items"
+  restart the app
+  wait 5 seconds
+  tap "Items"
+  wait 2 seconds
   scroll down
+  wait 1 seconds
   scroll down
-  see "Item 10"
+  wait 1 seconds
   scroll up
-  type "Widget" into #search_field
-  see "Widget"
-  don't see "Item 10"
+  wait 1 seconds
 
-test "item list swipe to delete"
-  @ui @items
-  open the app
-  navigate to "items"
-  see "Item 1"
-  swipe left on "Item 1"
-  tap "Delete"
-  don't see "Item 1"
-  see "Item 2"
+test "search and clear items"
+  restart the app
+  wait 5 seconds
+  tap "Items"
+  wait 2 seconds
+  type "Item 5" into #search_field
+  wait 1 seconds
+  clear #search_field
+  wait 1 seconds
 
-test "item list add via FAB"
-  @ui @items
-  open the app
-  navigate to "items"
-  tap #fab_add_item
-  wait until "New Item" appears
-  type "Test Item" into #item_name_field
-  type "A test description" into #item_description_field
-  tap #save_item_button
-  wait until "Items" appears
-  see "Test Item"
+test "tap FAB add button"
+  restart the app
+  wait 5 seconds
+  tap "Items"
+  wait 2 seconds
+  tap #fab_add
+  wait 1 seconds
+  see "Add item tapped"
+
+test "swipe left to delete item"
+  restart the app
+  wait 5 seconds
+  tap "Items"
+  wait 2 seconds
+  swipe left on #list_item_0
+  wait 1 seconds

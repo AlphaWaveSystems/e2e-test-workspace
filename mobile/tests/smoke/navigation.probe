@@ -1,69 +1,95 @@
-# Smoke test: navigate to all 9 screens and back
-use "recipes/navigation.probe"
+test "navigate to Login screen"
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
+  see "Login"
+  go back
+  wait 1 seconds
+  see "FlutterProbe Test App"
 
-before each
-  open the app
-  wait for the page to load
-
-test "navigate to dashboard and back"
-  @smoke @navigation
-  navigate to "dashboard"
+test "navigate to Dashboard screen"
+  restart the app
+  wait 5 seconds
+  tap "Dashboard"
+  wait 2 seconds
   see "Dashboard"
   go back
+  wait 1 seconds
   see "FlutterProbe Test App"
 
-test "navigate to login and back"
-  @smoke @navigation
-  navigate to "login"
-  see "Sign In"
-  go back
-  see "FlutterProbe Test App"
-
-test "navigate to settings and back"
-  @smoke @navigation
-  navigate to "settings"
+test "navigate to Settings screen"
+  restart the app
+  wait 5 seconds
+  tap "Settings"
+  wait 2 seconds
   see "Settings"
   go back
+  wait 1 seconds
   see "FlutterProbe Test App"
 
-test "navigate to item list and back"
-  @smoke @navigation
-  navigate to "items"
+test "navigate to Items screen"
+  restart the app
+  wait 5 seconds
+  tap "Items"
+  wait 2 seconds
   see "Items"
   go back
+  wait 1 seconds
   see "FlutterProbe Test App"
 
-test "navigate to gestures and back"
-  @smoke @navigation
-  navigate to "gestures"
+test "navigate to Gestures screen"
+  restart the app
+  wait 5 seconds
+  tap "Gestures"
+  wait 2 seconds
   see "Gestures"
   go back
+  wait 1 seconds
   see "FlutterProbe Test App"
 
-test "navigate to api and back"
-  @smoke @navigation
-  navigate to "api"
+test "navigate to API Tests screen"
+  restart the app
+  wait 5 seconds
+  tap "API Tests"
+  wait 2 seconds
   see "API Demo"
   go back
+  wait 1 seconds
   see "FlutterProbe Test App"
 
-test "navigate to permissions and back"
-  @smoke @navigation
-  navigate to "permissions"
-  see "Permissions"
+test "navigate to Device screen"
+  restart the app
+  wait 5 seconds
+  scroll down
+  wait 1 seconds
+  tap "Device"
+  wait 2 seconds
+  see "Device"
   go back
+  wait 1 seconds
   see "FlutterProbe Test App"
 
-test "navigate to clipboard and back"
-  @smoke @navigation
-  navigate to "clipboard"
-  see "Clipboard"
+test "navigate to Visual screen"
+  restart the app
+  wait 5 seconds
+  scroll down
+  wait 1 seconds
+  tap "Visual"
+  wait 2 seconds
+  see "Visual"
   go back
+  wait 1 seconds
   see "FlutterProbe Test App"
 
-test "navigate to location and back"
-  @smoke @navigation
-  navigate to "location"
-  see "Location"
+test "navigate to Dynamic screen"
+  restart the app
+  wait 5 seconds
+  scroll down
+  wait 1 seconds
+  tap "Dynamic"
+  wait 2 seconds
+  see "Dynamic"
   go back
+  wait 1 seconds
   see "FlutterProbe Test App"

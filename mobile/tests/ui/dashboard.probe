@@ -1,41 +1,58 @@
-use "recipes/auth.probe"
-
-test "dashboard shows stats cards"
-  @ui @dashboard
-  open the app
-  log in as "test@test.com" with "password"
+test "dashboard displays stat cards with correct values"
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
+  type "test@test.com" into #email_field
+  type "password" into #password_field
+  tap #sign_in_button
+  wait 4 seconds
   see "Dashboard"
-  see "Total Users"
-  see "Active Sessions"
-  see "Revenue"
+  see "Tests Run"
+  see "42"
+  see "Passed"
+  see "38"
+  see "Failed"
+  see "4"
 
-test "dashboard ordinal selectors"
-  @ui @dashboard
-  open the app
-  log in as "test@test.com" with "password"
-  see 1st "Card"
-  see 2nd "Card"
-  see 3rd "Card"
-  tap 1st "Card"
-  see "Details"
-  go back
+test "dashboard displays and interacts with items"
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
+  type "test@test.com" into #email_field
+  type "password" into #password_field
+  tap #sign_in_button
+  wait 4 seconds
+  see "Item 1"
+  tap #item_0
+  wait 1 seconds
+  tap #item_3
+  wait 1 seconds
+  scroll down
+  wait 1 seconds
 
-test "dashboard refresh"
-  @ui @dashboard
-  open the app
-  log in as "test@test.com" with "password"
-  see "Dashboard"
+test "dashboard refresh button shows snackbar"
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
+  type "test@test.com" into #email_field
+  type "password" into #password_field
+  tap #sign_in_button
+  wait 4 seconds
   tap #refresh_button
-  wait until "Loading" disappears
-  see "Dashboard"
-  see "Total Users"
+  wait 1 seconds
 
-test "dashboard scroll to bottom"
-  @ui @dashboard
-  open the app
-  log in as "test@test.com" with "password"
-  scroll down
-  scroll down
-  see "Recent Activity"
-  scroll up
-  see "Total Users"
+test "dashboard logout returns to home"
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
+  type "test@test.com" into #email_field
+  type "password" into #password_field
+  tap #sign_in_button
+  wait 4 seconds
+  tap #logout_button
+  wait 2 seconds
+  see "FlutterProbe Test App"

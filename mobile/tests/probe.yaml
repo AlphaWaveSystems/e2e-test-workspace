@@ -1,8 +1,8 @@
 project:
   name: "FlutterProbe E2E Test App"
-  app: com.alphawavesystems.probetest
+  app: com.alphawavesystems.probeTestApp
 defaults:
-  platform: android
+  platform: ios
   timeout: 30s
   screenshots: on_failure
   retry_failed_tests: 1

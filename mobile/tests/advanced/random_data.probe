@@ -1,30 +1,32 @@
-test "registration with all random generators"
-  @advanced @random
-  open the app
-  tap #nav_login
-  tap "Create Account"
-  wait until "Register" appears
+test "random email and name in login fields"
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
   type "<random.email>" into #email_field
-  type "<random.name>" into #name_field
-  type "<random.phone>" into #phone_field
-  type "<random.uuid>" into #reference_field
-  type "<random.number(18,65)>" into #age_field
-  type "<random.text(8)>" into #invite_code_field
-  tap #register_button
-  see "Success"
+  type "<random.name>" into #password_field
+  tap #sign_in_button
+  wait 2 seconds
+  see "Invalid"
 
-test "random data in search"
-  @advanced @random
-  open the app
-  tap #nav_items
-  type "<random.text(5)>" into #search_field
-  see "No results found"
+test "random number and text in login fields"
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
+  type "<random.number(1,100)>" into #email_field
+  type "<random.text(8)>" into #password_field
+  tap #sign_in_button
+  wait 2 seconds
+  see "Invalid"
 
-test "random email for password reset"
-  @advanced @random
-  open the app
-  tap #nav_login
-  tap "Forgot Password"
-  type "<random.email>" into #email_field
-  tap #reset_button
-  see "Reset link sent"
+test "random uuid and phone in login fields"
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
+  type "<random.uuid>" into #email_field
+  type "<random.phone>" into #password_field
+  tap #sign_in_button
+  wait 2 seconds
+  see "Invalid"

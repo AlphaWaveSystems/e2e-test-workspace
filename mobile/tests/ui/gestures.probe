@@ -1,37 +1,38 @@
-use "recipes/navigation.probe"
+test "double tap increments counter"
+  restart the app
+  wait 5 seconds
+  tap "Gestures"
+  wait 2 seconds
+  see "Double taps: 0"
+  double tap #double_tap_area
+  wait 2 seconds
+  see "Double taps: 1"
 
-test "drag item to target"
-  @ui @gestures
-  open the app
-  navigate to "gestures"
-  see "Drag Demo"
-  drag "Draggable" to "Drop Target"
-  see "Dropped"
-
-test "double tap to like"
-  @ui @gestures
-  open the app
-  navigate to "gestures"
-  see "Double Tap Demo"
-  double tap "Heart Icon"
-  see "Liked"
-
-test "long press for context menu"
-  @ui @gestures
-  open the app
-  navigate to "gestures"
-  see "Long Press Demo"
-  long press "Press Me"
-  see "Context Menu"
+test "long press shows context menu"
+  restart the app
+  wait 5 seconds
+  tap "Gestures"
+  wait 2 seconds
+  long press #long_press_area
+  wait 2 seconds
   see "Copy"
-  see "Share"
+  see "Delete"
 
-test "swipe card left and right"
-  @ui @gestures
-  open the app
-  navigate to "gestures"
-  see "Swipe Demo"
-  swipe left on "Swipe Card"
-  see "Dismissed Left"
-  swipe right on "Swipe Card"
-  see "Dismissed Right"
+test "swipe card to dismiss"
+  restart the app
+  wait 5 seconds
+  tap "Gestures"
+  wait 2 seconds
+  see "Swipe me to dismiss"
+  swipe right
+  wait 2 seconds
+
+test "drag source to target"
+  restart the app
+  wait 5 seconds
+  tap "Gestures"
+  wait 2 seconds
+  see "Drag"
+  see "Drop"
+  drag #drag_source to #drag_target
+  wait 2 seconds

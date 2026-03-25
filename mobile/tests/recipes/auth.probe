@@ -1,7 +1,9 @@
 recipe "log in as" (email, password)
-  tap #nav_login
-  wait until "Sign In" appears
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
   type <email> into #email_field
   type <password> into #password_field
   tap #sign_in_button
-  wait until "Welcome" appears
+  wait 4 seconds

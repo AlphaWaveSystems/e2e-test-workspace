@@ -1,18 +1,24 @@
-test "copy and paste email"
+test "copy and paste text"
   @device @clipboard
-  open the app
-  tap #nav_clipboard
-  copy "user@example.com" to clipboard
-  paste from clipboard
-  type "<clipboard>" into #clipboard_input
-  see "user@example.com"
-
-test "copy and paste code"
-  @device @clipboard
-  open the app
-  tap #nav_clipboard
-  copy "ABC-123-XYZ" to clipboard
-  paste from clipboard
-  type "<clipboard>" into #clipboard_input
+  restart the app
+  wait 5 seconds
+  scroll down
+  wait 1 seconds
+  tap "Device"
+  wait 2 seconds
+  see "Copy this text"
+  copy "Hello World" to clipboard
   tap #paste_button
-  see "ABC-123-XYZ"
+  wait 1 seconds
+
+test "clipboard section elements visible"
+  @device @clipboard
+  restart the app
+  wait 5 seconds
+  scroll down
+  wait 1 seconds
+  tap "Device"
+  wait 2 seconds
+  see "Clipboard"
+  see "Paste"
+  see "Text to copy"

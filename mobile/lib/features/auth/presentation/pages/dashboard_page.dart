@@ -31,7 +31,7 @@ class DashboardPage extends StatelessWidget {
                 icon: const Icon(Icons.logout),
                 onPressed: () {
                   auth.logout();
-                  Navigator.pushReplacementNamed(context, Routes.home);
+                  Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route) => false);
                 },
               ),
             ],

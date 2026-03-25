@@ -1,15 +1,16 @@
-test "login with various credentials"
-  @auth @data-driven
-  open the app
-  tap #nav_login
-  wait until "Sign In" appears
-  type <email> into #email_field
-  type <password> into #password_field
+test "login with <email> expects <expected>"
+  restart the app
+  wait 5 seconds
+  tap "Login"
+  wait 2 seconds
+  type "<email>" into #email_field
+  type "<password>" into #password_field
   tap #sign_in_button
-  see <expected>
+  wait 2 seconds
+  see "<expected>"
 
 with examples:
-  email              password       expected
-  "test@test.com"    "password"     "Welcome"
-  "admin@test.com"   "admin123"     "Welcome"
-  "bad@test.com"     "wrong"        "Invalid credentials"
+  email              password     expected
+  "test@test.com"    "password"   "Dashboard"
+  "admin@test.com"   "admin123"   "Dashboard"
+  "wrong@test.com"   "badpass"    "Invalid"

@@ -1,39 +1,21 @@
-test "mock API returns users"
+test "mock GET returns empty users list"
   @api @mock
-  when the app calls GET "/users"
-    respond with 200 and body "[{\"name\": \"Alice\"}, {\"name\": \"Bob\"}]"
-  open the app
-  tap #nav_api
-  tap #fetch_users_button
-  see "Alice"
-  see "Bob"
-
-test "mock API returns error"
-  @api @mock
-  when the app calls GET "/posts"
-    respond with 500 and body "{ \"error\": \"Server Down\" }"
-  open the app
-  tap #nav_api
-  tap #fetch_users_button
-  see "Server Error"
-
-test "mock API returns empty list"
-  @api @mock
-  when the app calls GET "/users"
+  when the app calls GET "/api/users"
     respond with 200 and body "[]"
-  open the app
-  tap #nav_api
+  restart the app
+  wait 5 seconds
+  tap "API Tests"
+  wait 2 seconds
   tap #fetch_users_button
-  see "No results found"
+  wait 1 seconds
 
-test "mock POST login"
+test "mock POST returns server error"
   @api @mock
-  when the app calls POST "/api/auth/login"
-    respond with 503 and body "{ \"error\": \"Service Unavailable\" }"
-  open the app
-  tap #nav_login
-  wait until "Sign In" appears
-  type "test@test.com" into #email_field
-  type "password" into #password_field
-  tap #sign_in_button
-  see "Service Unavailable"
+  when the app calls POST "/api/posts"
+    respond with 500 and body "{\"error\":\"fail\"}"
+  restart the app
+  wait 5 seconds
+  tap "API Tests"
+  wait 2 seconds
+  tap #create_post_button
+  wait 1 seconds

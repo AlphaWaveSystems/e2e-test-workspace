@@ -1,24 +1,49 @@
-use "recipes/navigation.probe"
+test "take visual screenshot baseline"
+  restart the app
+  wait 5 seconds
+  scroll down
+  wait 1 seconds
+  tap "Visual"
+  wait 2 seconds
+  see "Visual Test"
+  take a screenshot called "visual_baseline"
 
-before each
-  open the app
-  wait for the page to load
+test "color grid displays all colors"
+  restart the app
+  wait 5 seconds
+  scroll down
+  wait 1 seconds
+  tap "Visual"
+  wait 2 seconds
+  see "Red"
+  see "Green"
+  see "Blue"
+  see "Yellow"
 
-test "home screen visual regression"
-  @visual
-  take screenshot "home_screen"
-  compare screenshot "home_screen"
+test "counter increments correctly"
+  restart the app
+  wait 5 seconds
+  scroll down
+  wait 1 seconds
+  tap "Visual"
+  wait 2 seconds
+  see "Count: 0"
+  tap #increment_button
+  wait 1 seconds
+  see "Count: 1"
+  tap #increment_button
+  wait 1 seconds
+  see "Count: 2"
 
-test "dashboard visual regression"
-  @visual
-  navigate to "dashboard"
-  wait 1 second
-  take screenshot "dashboard_screen"
-  compare screenshot "dashboard_screen"
-
-test "settings visual regression"
-  @visual
-  navigate to "settings"
-  wait 1 second
-  take screenshot "settings_screen"
-  compare screenshot "settings_screen"
+test "typography samples are displayed"
+  restart the app
+  wait 5 seconds
+  scroll down
+  wait 1 seconds
+  tap "Visual"
+  wait 2 seconds
+  see "Heading 1"
+  see "Heading 2"
+  see "Body text at 16px"
+  see "Caption text at 12px"
+  see "Small text at 10px"

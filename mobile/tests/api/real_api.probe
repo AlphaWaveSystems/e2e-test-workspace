@@ -1,18 +1,25 @@
-test "real API health check"
+test "real GET request"
   @api @real
   call GET "https://jsonplaceholder.typicode.com/posts/1"
+  see "FlutterProbe Test App"
+
+test "real POST request with body"
+  @api @real
+  call POST "https://jsonplaceholder.typicode.com/posts" with body "{\"title\":\"test\",\"body\":\"hello\",\"userId\":1}"
+  see "FlutterProbe Test App"
+
+test "response variables from GET"
+  @api @real
+  call GET "https://jsonplaceholder.typicode.com/users/1"
   open the app
   see "FlutterProbe Test App"
 
-test "seed data via POST"
+test "fetch users from API page"
   @api @real
-  call POST "https://jsonplaceholder.typicode.com/posts" with body "{\"title\":\"test\",\"body\":\"probe\",\"userId\":1}"
-  open the app
-  see "FlutterProbe Test App"
-
-test "API response variables"
-  @api @real
-  call GET "https://jsonplaceholder.typicode.com/posts/1"
-  open the app
-  tap #nav_api
-  see "API Demo"
+  restart the app
+  wait 5 seconds
+  tap "API Tests"
+  wait 2 seconds
+  tap #fetch_users_button
+  wait 2 seconds
+  see "Leanne Graham"

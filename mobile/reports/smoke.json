@@ -1,0 +1,104 @@
+{
+  "generated_at": "2026-03-25T06:43:45Z",
+  "metadata": {
+    "device_name": "iPhone 17 Pro",
+    "device_id": "475EACA7-65DB-46C8-A370-C42E8AE5EA38",
+    "platform": "ios",
+    "os_version": "iOS 26.3",
+    "provider": "local",
+    "app_id": "com.alphawavesystems.probeTestApp",
+    "app_version": "",
+    "probe_version": "",
+    "config_file": "tests/probe.yaml"
+  },
+  "total_tests": 10,
+  "passed": 9,
+  "failed": 1,
+  "skipped": 0,
+  "results": [
+    {
+      "name": "app launches successfully",
+      "file": "tests/smoke/launch.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 517,
+      "row": -1
+    },
+    {
+      "name": "navigate to dashboard and back",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 125,
+      "row": -1
+    },
+    {
+      "name": "navigate to login and back",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 4,
+      "row": -1
+    },
+    {
+      "name": "navigate to settings and back",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 2,
+      "row": -1
+    },
+    {
+      "name": "navigate to items and back",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 2,
+      "row": -1
+    },
+    {
+      "name": "navigate to gestures and back",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 25,
+      "row": -1
+    },
+    {
+      "name": "navigate to api and back",
+      "file": "tests/smoke/navigation.probe",
+      "passed": false,
+      "skipped": false,
+      "duration_ms": 369,
+      "error": "rpc error -32002: Expected to see \"text(\"API Demo\")\" but it was not found",
+      "row": -1,
+      "artifacts": [
+        "screenshots/failure_navigate_to_api_and_back_1774421025943.png"
+      ]
+    },
+    {
+      "name": "navigate to device and back",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 3,
+      "row": -1
+    },
+    {
+      "name": "navigate to visual and back",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 1,
+      "row": -1
+    },
+    {
+      "name": "navigate to dynamic and back",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 1,
+      "row": -1
+    }
+  ]
+}

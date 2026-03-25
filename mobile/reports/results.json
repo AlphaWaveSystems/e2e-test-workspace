@@ -1,0 +1,613 @@
+{
+  "generated_at": "2026-03-25T09:31:55Z",
+  "metadata": {
+    "device_name": "iPhone 17 Pro",
+    "device_id": "475EACA7-65DB-46C8-A370-C42E8AE5EA38",
+    "platform": "ios",
+    "os_version": "iOS 26.3",
+    "provider": "local",
+    "app_id": "com.alphawavesystems.probeTestApp",
+    "app_version": "",
+    "probe_version": "",
+    "config_file": "tests/probe.yaml"
+  },
+  "total_tests": 74,
+  "passed": 74,
+  "failed": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "name": "app launches successfully",
+      "file": "tests/smoke/launch.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 1526,
+      "row": -1
+    },
+    {
+      "name": "navigate to Login screen",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11361,
+      "row": -1
+    },
+    {
+      "name": "navigate to Dashboard screen",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11360,
+      "row": -1
+    },
+    {
+      "name": "navigate to Settings screen",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11364,
+      "row": -1
+    },
+    {
+      "name": "navigate to Items screen",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11354,
+      "row": -1
+    },
+    {
+      "name": "navigate to Gestures screen",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11342,
+      "row": -1
+    },
+    {
+      "name": "navigate to API Tests screen",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11369,
+      "row": -1
+    },
+    {
+      "name": "navigate to Device screen",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12367,
+      "row": -1
+    },
+    {
+      "name": "navigate to Visual screen",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12389,
+      "row": -1
+    },
+    {
+      "name": "navigate to Dynamic screen",
+      "file": "tests/smoke/navigation.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12424,
+      "row": -1
+    },
+    {
+      "name": "login with \u003cemail\u003e expects \u003cexpected\u003e [row 1]",
+      "file": "tests/auth/login_csv.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12392
+    },
+    {
+      "name": "login with \u003cemail\u003e expects \u003cexpected\u003e [row 2]",
+      "file": "tests/auth/login_csv.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12405,
+      "row": 1
+    },
+    {
+      "name": "login with \u003cemail\u003e expects \u003cexpected\u003e [row 3]",
+      "file": "tests/auth/login_csv.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12363,
+      "row": 2
+    },
+    {
+      "name": "login with \u003cemail\u003e expects \u003cexpected\u003e [row 1]",
+      "file": "tests/auth/login_data_driven.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12362
+    },
+    {
+      "name": "login with \u003cemail\u003e expects \u003cexpected\u003e [row 2]",
+      "file": "tests/auth/login_data_driven.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12410,
+      "row": 1
+    },
+    {
+      "name": "login with \u003cemail\u003e expects \u003cexpected\u003e [row 3]",
+      "file": "tests/auth/login_data_driven.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12375,
+      "row": 2
+    },
+    {
+      "name": "submit with only valid email",
+      "file": "tests/auth/login_errors.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12376,
+      "row": -1
+    },
+    {
+      "name": "submit with only invalid email",
+      "file": "tests/auth/login_errors.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12409,
+      "row": -1
+    },
+    {
+      "name": "submit with only password",
+      "file": "tests/auth/login_errors.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12374,
+      "row": -1
+    },
+    {
+      "name": "submit with email and password",
+      "file": "tests/auth/login_errors.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12396,
+      "row": -1
+    },
+    {
+      "name": "paste email into password field",
+      "file": "tests/auth/login_errors.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11382,
+      "row": -1
+    },
+    {
+      "name": "forgot password link",
+      "file": "tests/auth/login_errors.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11366,
+      "row": -1
+    },
+    {
+      "name": "swipe right to go back",
+      "file": "tests/auth/login_errors.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11357,
+      "row": -1
+    },
+    {
+      "name": "successful login navigates to dashboard",
+      "file": "tests/auth/login_success.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 1,
+      "row": -1
+    },
+    {
+      "name": "dashboard displays stat cards with correct values",
+      "file": "tests/ui/dashboard.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 14387,
+      "row": -1
+    },
+    {
+      "name": "dashboard displays and interacts with items",
+      "file": "tests/ui/dashboard.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 17416,
+      "row": -1
+    },
+    {
+      "name": "dashboard refresh button shows snackbar",
+      "file": "tests/ui/dashboard.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 15419,
+      "row": -1
+    },
+    {
+      "name": "dashboard logout returns to home",
+      "file": "tests/ui/dashboard.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 16369,
+      "row": -1
+    },
+    {
+      "name": "double tap increments counter",
+      "file": "tests/ui/gestures.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12413,
+      "row": -1
+    },
+    {
+      "name": "long press shows context menu",
+      "file": "tests/ui/gestures.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12872,
+      "row": -1
+    },
+    {
+      "name": "swipe card to dismiss",
+      "file": "tests/ui/gestures.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12363,
+      "row": -1
+    },
+    {
+      "name": "drag source to target",
+      "file": "tests/ui/gestures.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12369,
+      "row": -1
+    },
+    {
+      "name": "see first item in list",
+      "file": "tests/ui/item_list.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 10346,
+      "row": -1
+    },
+    {
+      "name": "scroll down and up through items",
+      "file": "tests/ui/item_list.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 13377,
+      "row": -1
+    },
+    {
+      "name": "search and clear items",
+      "file": "tests/ui/item_list.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12634,
+      "row": -1
+    },
+    {
+      "name": "tap FAB add button",
+      "file": "tests/ui/item_list.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11362,
+      "row": -1
+    },
+    {
+      "name": "swipe left to delete item",
+      "file": "tests/ui/item_list.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11373,
+      "row": -1
+    },
+    {
+      "name": "toggle dark mode",
+      "file": "tests/ui/settings.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12488,
+      "row": -1
+    },
+    {
+      "name": "toggle notifications",
+      "file": "tests/ui/settings.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11361,
+      "row": -1
+    },
+    {
+      "name": "toggle terms checkbox",
+      "file": "tests/ui/settings.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11388,
+      "row": -1
+    },
+    {
+      "name": "save button shows snackbar",
+      "file": "tests/ui/settings.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11355,
+      "row": -1
+    },
+    {
+      "name": "delete account button is visible",
+      "file": "tests/ui/settings.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 10355,
+      "row": -1
+    },
+    {
+      "name": "build info is displayed",
+      "file": "tests/ui/settings.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 10356,
+      "row": -1
+    },
+    {
+      "name": "language dropdown is visible",
+      "file": "tests/ui/settings.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 10346,
+      "row": -1
+    },
+    {
+      "name": "mock GET returns empty users list",
+      "file": "tests/api/mock_api.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11365,
+      "row": -1
+    },
+    {
+      "name": "mock POST returns server error",
+      "file": "tests/api/mock_api.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11397,
+      "row": -1
+    },
+    {
+      "name": "real GET request",
+      "file": "tests/api/real_api.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 149,
+      "row": -1
+    },
+    {
+      "name": "real POST request with body",
+      "file": "tests/api/real_api.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 136,
+      "row": -1
+    },
+    {
+      "name": "response variables from GET",
+      "file": "tests/api/real_api.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 548,
+      "row": -1
+    },
+    {
+      "name": "fetch users from API page",
+      "file": "tests/api/real_api.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12383,
+      "row": -1
+    },
+    {
+      "name": "take visual screenshot baseline",
+      "file": "tests/visual/regression.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11798,
+      "row": -1,
+      "artifacts": [
+        "screenshots/visual_baseline_1774430848975.png"
+      ]
+    },
+    {
+      "name": "color grid displays all colors",
+      "file": "tests/visual/regression.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11377,
+      "row": -1
+    },
+    {
+      "name": "counter increments correctly",
+      "file": "tests/visual/regression.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 13444,
+      "row": -1
+    },
+    {
+      "name": "typography samples are displayed",
+      "file": "tests/visual/regression.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11379,
+      "row": -1
+    },
+    {
+      "name": "A/B banner conditional",
+      "file": "tests/advanced/conditionals.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11418,
+      "row": -1
+    },
+    {
+      "name": "error dialog conditional",
+      "file": "tests/advanced/conditionals.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12407,
+      "row": -1
+    },
+    {
+      "name": "run inline dart code",
+      "file": "tests/advanced/dart_escape.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 8301,
+      "row": -1
+    },
+    {
+      "name": "hooks test navigate to Dashboard",
+      "file": "tests/advanced/hooks_all.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 10333,
+      "row": -1
+    },
+    {
+      "name": "hooks test navigate to Settings",
+      "file": "tests/advanced/hooks_all.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 10338,
+      "row": -1
+    },
+    {
+      "name": "hooks test navigate to Items",
+      "file": "tests/advanced/hooks_all.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 10347,
+      "row": -1
+    },
+    {
+      "name": "repeat tap 5 times on dynamic screen",
+      "file": "tests/advanced/loops.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 16406,
+      "row": -1
+    },
+    {
+      "name": "repeat scroll 3 times in items list",
+      "file": "tests/advanced/loops.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 13376,
+      "row": -1
+    },
+    {
+      "name": "random email and name in login fields",
+      "file": "tests/advanced/random_data.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12397,
+      "row": -1
+    },
+    {
+      "name": "random number and text in login fields",
+      "file": "tests/advanced/random_data.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12399,
+      "row": -1
+    },
+    {
+      "name": "random uuid and phone in login fields",
+      "file": "tests/advanced/random_data.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12430,
+      "row": -1
+    },
+    {
+      "name": "browser section is visible",
+      "file": "tests/device/browser.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11480,
+      "row": -1
+    },
+    {
+      "name": "copy and paste text",
+      "file": "tests/device/clipboard.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 12507,
+      "row": -1
+    },
+    {
+      "name": "clipboard section elements visible",
+      "file": "tests/device/clipboard.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11377,
+      "row": -1
+    },
+    {
+      "name": "restart app preserves state",
+      "file": "tests/device/lifecycle.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 8307,
+      "row": -1
+    },
+    {
+      "name": "clear app data resets everything",
+      "file": "tests/device/lifecycle.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 15179,
+      "row": -1
+    },
+    {
+      "name": "set location to San Francisco",
+      "file": "tests/device/location.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11471,
+      "row": -1
+    },
+    {
+      "name": "permissions UI elements visible",
+      "file": "tests/device/permissions.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 11474,
+      "row": -1
+    },
+    {
+      "name": "grant all permissions",
+      "file": "tests/device/permissions.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 9101,
+      "row": -1
+    },
+    {
+      "name": "revoke all permissions",
+      "file": "tests/device/permissions.probe",
+      "passed": true,
+      "skipped": false,
+      "duration_ms": 8407,
+      "row": -1
+    }
+  ]
+}

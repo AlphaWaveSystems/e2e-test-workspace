@@ -1,25 +1,21 @@
-use "recipes/navigation.probe"
-
-test "swipe through onboarding pages"
-  @advanced @loops
-  open the app
-  repeat 3 times
-    swipe left
-    wait 1 second
-  see "Get Started"
-
-test "tap increment button multiple times"
-  @advanced @loops
-  open the app
-  navigate to "dashboard"
+test "repeat tap 5 times on dynamic screen"
+  restart the app
+  wait 5 seconds
+  scroll down
+  wait 1 seconds
+  tap "Dynamic"
+  wait 2 seconds
+  see "Tapped: 0"
   repeat 5 times
-    tap #increment_button
-  see "5"
+    tap #repeat_action
+    wait 1 seconds
+  see "Tapped: 5"
 
-test "scroll through long list"
-  @advanced @loops
-  open the app
-  navigate to "items"
-  repeat 10 times
+test "repeat scroll 3 times in items list"
+  restart the app
+  wait 5 seconds
+  tap "Items"
+  wait 2 seconds
+  repeat 3 times
     scroll down
-  see "Item 50"
+    wait 1 seconds

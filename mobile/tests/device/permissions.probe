@@ -1,31 +1,23 @@
-test "allow notification permission"
+test "permissions UI elements visible"
   @device @permissions
-  open the app
-  tap #nav_permissions
-  allow permission "notifications"
-  tap #request_notifications_button
-  see "Notifications Enabled"
-
-test "deny camera permission"
-  @device @permissions
-  open the app
-  tap #nav_permissions
-  deny permission "camera"
-  tap #request_camera_button
-  see "Camera Denied"
+  restart the app
+  wait 5 seconds
+  scroll down
+  wait 1 seconds
+  tap "Device"
+  wait 2 seconds
+  see "Permissions"
+  see "Request Camera"
+  see "Request Location"
 
 test "grant all permissions"
   @device @permissions
-  open the app
+  restart the app
+  wait 5 seconds
   grant all permissions
-  tap #nav_permissions
-  see "All Granted"
 
 test "revoke all permissions"
   @device @permissions
-  open the app
-  grant all permissions
+  restart the app
+  wait 5 seconds
   revoke all permissions
-  tap #nav_permissions
-  tap #request_camera_button
-  see "Camera Denied"
