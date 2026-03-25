@@ -1,39 +1,36 @@
 # E2E Test Workspace
 
-Multi-stack test workspace for the AI CMS Project Board platform.
+Test workspace for [FlutterProbe](https://github.com/AlphaWaveSystems/flutter-probe) E2E testing.
 
 ## Structure
 
 ```
-mobile/       Flutter mobile app (iOS + Android)
-frontend/     React web frontend (Vite + TypeScript)
-backend/      Go REST API backend
-docs/         Documentation
-.github/      CI/CD workflows
+mobile/       Flutter test app (iOS + Android) — 10 screens, 74 E2E tests
 ```
 
-## Stack
+## Mobile App
 
-| Layer | Technology | Directory |
-|-------|-----------|-----------|
-| Mobile | Flutter 3 + Dart | `mobile/` |
-| Frontend | React 18 + TypeScript + Vite | `frontend/` |
-| Backend | Go 1.22 + Chi router + PostgreSQL | `backend/` |
+Purpose-built Flutter app for exercising every FlutterProbe framework feature:
 
-## Development
+- **10 screens**: Home, Login, Dashboard, Settings, Items, Gestures, API, Device, Visual, Dynamic
+- **74 test files** covering: navigation, forms, gestures, HTTP mocking, visual regression, hooks, data-driven tests, and more
+- **Clean Architecture**: domain/data/presentation layers with Provider + get_it
+
+## Running Tests
 
 ```bash
-# Backend
-cd backend && go run ./cmd/server
+# Build with ProbeAgent enabled
+cd mobile
+flutter build apk --debug --dart-define=PROBE_AGENT=true    # Android
+flutter build ios --debug --simulator --dart-define=PROBE_AGENT=true  # iOS
 
-# Frontend
-cd frontend && npm run dev
+# Run all tests
+probe test mobile/tests/ --device <device-serial> --config mobile/tests/probe.yaml -v -y
 
-# Mobile
-cd mobile && flutter run
+# Run in parallel across iOS + Android
+probe test mobile/tests/ --parallel --devices emulator-5554,<ios-udid>
 ```
 
-## JIRA
+## License
 
-- Project: ETP
-- Board: https://alphawavesystems.atlassian.net/jira/servicedesk/projects/ETP/queues/custom/98
+[BSL 1.1](https://github.com/AlphaWaveSystems/flutter-probe/blob/main/LICENSE) — same as FlutterProbe.
