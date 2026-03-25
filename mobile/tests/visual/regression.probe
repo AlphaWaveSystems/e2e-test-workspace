@@ -1,0 +1,24 @@
+use "recipes/navigation.probe"
+
+before each
+  open the app
+  wait for the page to load
+
+test "home screen visual regression"
+  @visual
+  take screenshot "home_screen"
+  compare screenshot "home_screen"
+
+test "dashboard visual regression"
+  @visual
+  navigate to "dashboard"
+  wait 1 second
+  take screenshot "dashboard_screen"
+  compare screenshot "dashboard_screen"
+
+test "settings visual regression"
+  @visual
+  navigate to "settings"
+  wait 1 second
+  take screenshot "settings_screen"
+  compare screenshot "settings_screen"

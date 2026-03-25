@@ -1,35 +1,31 @@
 import 'package:flutter/material.dart';
-import 'screens/task_list_screen.dart';
-import 'screens/task_detail_screen.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const App());
-}
+// TODO: Uncomment when probe_agent is added as a git dependency
+// import 'package:probe_agent/probe_agent.dart';
 
-class App extends StatelessWidget {
-  const App({super.key});
+import 'app.dart';
+import 'core/di/injection.dart';
+import 'features/auth/presentation/providers/auth_provider.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'E2E Test Workspace',
-      theme: ThemeData(
-        colorSchemeSeed: Colors.blue,
-        useMaterial3: true,
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const TaskListScreen(),
-      },
-      onGenerateRoute: (settings) {
-        if (settings.name?.startsWith('/tasks/') ?? false) {
-          final id = settings.name!.split('/').last;
-          return MaterialPageRoute(
-            builder: (context) => TaskDetailScreen(taskId: id),
-          );
-        }
-        return null;
-      },
-    );
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize ProbeAgent if PROBE_AGENT dart define is set
+  const probeEnabled = bool.fromEnvironment('PROBE_AGENT');
+  if (probeEnabled) {
+    // TODO: Uncomment when probe_agent is added as a git dependency
+    // await ProbeAgent.init();
   }
+
+  setupDependencies();
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+      ],
+      child: const ProbeTestApp(),
+    ),
+  );
 }

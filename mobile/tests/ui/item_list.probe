@@ -1,0 +1,36 @@
+use "recipes/navigation.probe"
+
+test "item list scroll and search"
+  @ui @items
+  open the app
+  navigate to "items"
+  see "Items"
+  scroll down
+  scroll down
+  see "Item 10"
+  scroll up
+  type "Widget" into #search_field
+  see "Widget"
+  don't see "Item 10"
+
+test "item list swipe to delete"
+  @ui @items
+  open the app
+  navigate to "items"
+  see "Item 1"
+  swipe left on "Item 1"
+  tap "Delete"
+  don't see "Item 1"
+  see "Item 2"
+
+test "item list add via FAB"
+  @ui @items
+  open the app
+  navigate to "items"
+  tap #fab_add_item
+  wait until "New Item" appears
+  type "Test Item" into #item_name_field
+  type "A test description" into #item_description_field
+  tap #save_item_button
+  wait until "Items" appears
+  see "Test Item"

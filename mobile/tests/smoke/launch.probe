@@ -1,0 +1,6 @@
+test "app launches successfully"
+  @smoke
+  open the app
+  see "FlutterProbe Test App"
+  see "Version 1.0"
+  don't see "Error"

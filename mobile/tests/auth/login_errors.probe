@@ -1,0 +1,41 @@
+test "invalid credentials show error"
+  @auth @negative
+  open the app
+  tap #nav_login
+  wait until "Sign In" appears
+  type "wrong@test.com" into #email_field
+  type "badpassword" into #password_field
+  tap #sign_in_button
+  see "Invalid credentials"
+  don't see "Welcome"
+
+test "empty email shows validation error"
+  @auth @negative
+  open the app
+  tap #nav_login
+  wait until "Sign In" appears
+  type "" into #email_field
+  type "password" into #password_field
+  tap #sign_in_button
+  see "Email is required"
+  don't see "Welcome"
+
+test "empty password shows validation error"
+  @auth @negative
+  open the app
+  tap #nav_login
+  wait until "Sign In" appears
+  type "test@test.com" into #email_field
+  type "" into #password_field
+  tap #sign_in_button
+  see "Password is required"
+  don't see "Welcome"
+
+test "empty fields show both errors"
+  @auth @negative
+  open the app
+  tap #nav_login
+  wait until "Sign In" appears
+  tap #sign_in_button
+  see "Email is required"
+  see "Password is required"

@@ -1,0 +1,8 @@
+use "recipes/auth.probe"
+
+test "valid login navigates to dashboard"
+  @smoke @auth
+  open the app
+  log in as "test@test.com" with "password"
+  see "Welcome"
+  see "Dashboard"

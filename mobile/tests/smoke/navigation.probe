@@ -1,0 +1,69 @@
+# Smoke test: navigate to all 9 screens and back
+use "recipes/navigation.probe"
+
+before each
+  open the app
+  wait for the page to load
+
+test "navigate to dashboard and back"
+  @smoke @navigation
+  navigate to "dashboard"
+  see "Dashboard"
+  go back
+  see "FlutterProbe Test App"
+
+test "navigate to login and back"
+  @smoke @navigation
+  navigate to "login"
+  see "Sign In"
+  go back
+  see "FlutterProbe Test App"
+
+test "navigate to settings and back"
+  @smoke @navigation
+  navigate to "settings"
+  see "Settings"
+  go back
+  see "FlutterProbe Test App"
+
+test "navigate to item list and back"
+  @smoke @navigation
+  navigate to "items"
+  see "Items"
+  go back
+  see "FlutterProbe Test App"
+
+test "navigate to gestures and back"
+  @smoke @navigation
+  navigate to "gestures"
+  see "Gestures"
+  go back
+  see "FlutterProbe Test App"
+
+test "navigate to api and back"
+  @smoke @navigation
+  navigate to "api"
+  see "API Demo"
+  go back
+  see "FlutterProbe Test App"
+
+test "navigate to permissions and back"
+  @smoke @navigation
+  navigate to "permissions"
+  see "Permissions"
+  go back
+  see "FlutterProbe Test App"
+
+test "navigate to clipboard and back"
+  @smoke @navigation
+  navigate to "clipboard"
+  see "Clipboard"
+  go back
+  see "FlutterProbe Test App"
+
+test "navigate to location and back"
+  @smoke @navigation
+  navigate to "location"
+  see "Location"
+  go back
+  see "FlutterProbe Test App"

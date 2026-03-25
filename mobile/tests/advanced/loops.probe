@@ -1,0 +1,25 @@
+use "recipes/navigation.probe"
+
+test "swipe through onboarding pages"
+  @advanced @loops
+  open the app
+  repeat 3 times
+    swipe left
+    wait 1 second
+  see "Get Started"
+
+test "tap increment button multiple times"
+  @advanced @loops
+  open the app
+  navigate to "dashboard"
+  repeat 5 times
+    tap #increment_button
+  see "5"
+
+test "scroll through long list"
+  @advanced @loops
+  open the app
+  navigate to "items"
+  repeat 10 times
+    scroll down
+  see "Item 50"

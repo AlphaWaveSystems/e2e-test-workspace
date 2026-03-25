@@ -1,0 +1,37 @@
+test "kill and reopen app"
+  @device @lifecycle
+  open the app
+  see "FlutterProbe Test App"
+  kill the app
+  open the app
+  see "FlutterProbe Test App"
+
+test "restart app preserves data"
+  @device @lifecycle
+  open the app
+  tap #nav_settings
+  tap #dark_mode_toggle
+  restart the app
+  tap #nav_settings
+  see "Dark Mode" is enabled
+
+test "clear app data resets state"
+  @device @lifecycle
+  open the app
+  tap #nav_settings
+  tap #dark_mode_toggle
+  clear app data
+  tap #nav_settings
+  see "Dark Mode" is disabled
+
+test "full lifecycle sequence"
+  @device @lifecycle
+  open the app
+  see "FlutterProbe Test App"
+  kill the app
+  open the app
+  see "FlutterProbe Test App"
+  restart the app
+  see "FlutterProbe Test App"
+  clear app data
+  see "FlutterProbe Test App"

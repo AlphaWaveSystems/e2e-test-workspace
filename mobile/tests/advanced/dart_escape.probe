@@ -1,0 +1,28 @@
+test "run dart code to clear preferences"
+  @advanced @dart
+  open the app
+  run dart:
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  restart the app
+  see "FlutterProbe Test App"
+  don't see "Welcome Back"
+
+test "run dart code to count widgets"
+  @advanced @dart
+  open the app
+  tap #nav_items
+  run dart:
+    final count = agent.findAll(type: "ListTile").length;
+    expect(count > 0, "expected list items");
+  see "Items"
+
+test "run dart code to set test state"
+  @advanced @dart
+  open the app
+  run dart:
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('onboarding_complete', true);
+    await prefs.setString('user_name', 'Test User');
+  restart the app
+  see "Test User"

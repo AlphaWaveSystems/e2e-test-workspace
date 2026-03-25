@@ -1,0 +1,25 @@
+test "dismiss A/B test banner if present"
+  @advanced @conditionals
+  open the app
+  if "Special Offer" appears
+    tap "Dismiss"
+  see "FlutterProbe Test App"
+  don't see "Special Offer"
+
+test "conditional login or signup"
+  @advanced @conditionals
+  open the app
+  tap #nav_login
+  if "Welcome Back" appears
+    tap "Sign In"
+  else
+    tap "Create Account"
+  wait for the page to load
+
+test "conditional cookie banner"
+  @advanced @conditionals
+  open the app
+  if "Accept Cookies" appears
+    tap "Accept Cookies"
+  don't see "Accept Cookies"
+  see "FlutterProbe Test App"

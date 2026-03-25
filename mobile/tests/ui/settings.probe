@@ -1,0 +1,39 @@
+use "recipes/navigation.probe"
+
+test "settings toggle dark mode"
+  @ui @settings
+  open the app
+  navigate to "settings"
+  see "Dark Mode"
+  tap #dark_mode_toggle
+  see "Dark Mode" is enabled
+  tap #dark_mode_toggle
+  see "Dark Mode" is disabled
+
+test "settings checkbox notifications"
+  @ui @settings
+  open the app
+  navigate to "settings"
+  see "Push Notifications"
+  tap #notifications_checkbox
+  see "Push Notifications" is checked
+  tap #notifications_checkbox
+  don't see "Push Notifications" is checked
+
+test "settings enabled and disabled states"
+  @ui @settings
+  open the app
+  navigate to "settings"
+  see "Save" is enabled
+  see "Delete Account" is enabled
+  tap #delete_account_button
+  see "Confirm" is enabled
+  see "Cancel" is enabled
+
+test "settings contains partial text"
+  @ui @settings
+  open the app
+  navigate to "settings"
+  see "Version" contains "1."
+  see "Build" contains "202"
+  see "Account" contains "test"

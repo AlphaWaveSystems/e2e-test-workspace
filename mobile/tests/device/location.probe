@@ -1,0 +1,20 @@
+test "set location to San Francisco"
+  @device @location
+  set location 37.7749, -122.4194
+  open the app
+  tap #nav_location
+  see "San Francisco"
+
+test "set location to New York"
+  @device @location
+  set location 40.7128, -74.0060
+  open the app
+  tap #nav_location
+  see "New York"
+
+test "set location to London"
+  @device @location
+  set location 51.5074, -0.1278
+  open the app
+  tap #nav_location
+  see "London"

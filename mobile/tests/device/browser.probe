@@ -1,0 +1,14 @@
+test "external link opens browser"
+  @device @browser
+  open the app
+  tap #nav_api
+  tap #open_docs_link
+  verify external browser opened
+
+test "support link opens browser"
+  @device @browser
+  open the app
+  tap #nav_settings
+  wait for the page to load
+  tap "Support"
+  verify external browser opened

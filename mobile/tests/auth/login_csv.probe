@@ -1,0 +1,11 @@
+test "login with CSV data"
+  @auth @data-driven
+  open the app
+  tap #nav_login
+  wait until "Sign In" appears
+  type "<email>" into #email_field
+  type "<password>" into #password_field
+  tap #sign_in_button
+  see "<expected>"
+
+with examples from "fixtures/users.csv"

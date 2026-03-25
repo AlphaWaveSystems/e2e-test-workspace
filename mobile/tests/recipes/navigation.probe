@@ -1,0 +1,3 @@
+recipe "navigate to" (screen)
+  tap #nav_<screen>
+  wait for the page to load

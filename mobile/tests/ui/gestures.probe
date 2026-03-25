@@ -1,0 +1,37 @@
+use "recipes/navigation.probe"
+
+test "drag item to target"
+  @ui @gestures
+  open the app
+  navigate to "gestures"
+  see "Drag Demo"
+  drag "Draggable" to "Drop Target"
+  see "Dropped"
+
+test "double tap to like"
+  @ui @gestures
+  open the app
+  navigate to "gestures"
+  see "Double Tap Demo"
+  double tap "Heart Icon"
+  see "Liked"
+
+test "long press for context menu"
+  @ui @gestures
+  open the app
+  navigate to "gestures"
+  see "Long Press Demo"
+  long press "Press Me"
+  see "Context Menu"
+  see "Copy"
+  see "Share"
+
+test "swipe card left and right"
+  @ui @gestures
+  open the app
+  navigate to "gestures"
+  see "Swipe Demo"
+  swipe left on "Swipe Card"
+  see "Dismissed Left"
+  swipe right on "Swipe Card"
+  see "Dismissed Right"

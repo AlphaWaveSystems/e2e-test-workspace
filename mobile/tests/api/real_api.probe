@@ -1,0 +1,18 @@
+test "real API health check"
+  @api @real
+  call GET "https://jsonplaceholder.typicode.com/posts/1"
+  open the app
+  see "FlutterProbe Test App"
+
+test "seed data via POST"
+  @api @real
+  call POST "https://jsonplaceholder.typicode.com/posts" with body "{\"title\":\"test\",\"body\":\"probe\",\"userId\":1}"
+  open the app
+  see "FlutterProbe Test App"
+
+test "API response variables"
+  @api @real
+  call GET "https://jsonplaceholder.typicode.com/posts/1"
+  open the app
+  tap #nav_api
+  see "API Demo"

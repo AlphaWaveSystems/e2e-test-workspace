@@ -1,0 +1,35 @@
+before all
+  open the app
+  wait for the page to load
+  log "suite setup complete"
+
+after all
+  take screenshot "suite_final"
+  log "suite teardown complete"
+
+before each
+  see "FlutterProbe Test App"
+
+after each
+  take screenshot "after_test"
+  go back
+
+on failure
+  take screenshot "failure_state"
+  save logs
+  dump tree
+
+test "first test with all hooks"
+  @advanced @hooks
+  tap #nav_dashboard
+  see "Dashboard"
+
+test "second test with all hooks"
+  @advanced @hooks
+  tap #nav_settings
+  see "Settings"
+
+test "third test with all hooks"
+  @advanced @hooks
+  tap #nav_items
+  see "Items"

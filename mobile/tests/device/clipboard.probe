@@ -1,0 +1,18 @@
+test "copy and paste email"
+  @device @clipboard
+  open the app
+  tap #nav_clipboard
+  copy "user@example.com" to clipboard
+  paste from clipboard
+  type "<clipboard>" into #clipboard_input
+  see "user@example.com"
+
+test "copy and paste code"
+  @device @clipboard
+  open the app
+  tap #nav_clipboard
+  copy "ABC-123-XYZ" to clipboard
+  paste from clipboard
+  type "<clipboard>" into #clipboard_input
+  tap #paste_button
+  see "ABC-123-XYZ"
