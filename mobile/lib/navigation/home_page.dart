@@ -83,6 +83,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               _navTile('Login', Icons.login, Routes.login, 'nav_login'),
               _navTile('Biometric Login', Icons.face, Routes.biometric, 'nav_biometric'),
+              _navTile('Signal Demo', Icons.notifications_active, Routes.signal, 'nav_signal'),
               _navTile('Dashboard', Icons.dashboard, Routes.dashboard, 'nav_dashboard'),
               _navTile('Settings', Icons.settings, Routes.settings, 'nav_settings'),
               _navTile('Items', Icons.list, Routes.items, 'nav_items'),

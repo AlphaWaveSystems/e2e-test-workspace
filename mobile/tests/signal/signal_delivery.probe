@@ -1,0 +1,51 @@
+test "deliver default signal unblocks push permission"
+  open the app
+  wait until "Signal Demo" appears
+  tap #nav_signal
+  wait for animations to end
+  wait until "Request Push Permission" appears
+  tap "Request Push Permission"
+  wait until "Waiting for permission…" appears
+  see "Waiting for permission…"
+  deliver signal "push_permission"
+  wait until "Notifications enabled" appears
+  see "Notifications enabled"
+
+test "deliver valued signal - payment success"
+  open the app
+  wait until "Signal Demo" appears
+  tap #nav_signal
+  wait for animations to end
+  wait until "Start Payment" appears
+  tap "Start Payment"
+  wait until "Payment in progress…" appears
+  see "Payment in progress…"
+  deliver signal "payment_result" "success"
+  wait until "Payment confirmed" appears
+  see "Payment confirmed"
+
+test "deliver valued signal - payment failure"
+  open the app
+  wait until "Signal Demo" appears
+  tap #nav_signal
+  wait for animations to end
+  wait until "Start Payment" appears
+  tap "Start Payment"
+  wait until "Payment in progress…" appears
+  see "Payment in progress…"
+  deliver signal "payment_result" "failed"
+  wait until "Payment failed" appears
+  see "Payment failed"
+
+test "deliver valued signal - deep link"
+  open the app
+  wait until "Signal Demo" appears
+  tap #nav_signal
+  wait for animations to end
+  wait until "Open Deep Link" appears
+  tap "Open Deep Link"
+  wait until "Opening link…" appears
+  see "Opening link…"
+  deliver signal "deep_link" "https://flutterprobe.dev"
+  wait until "Opened: https://flutterprobe.dev" appears
+  see "Opened: https://flutterprobe.dev"

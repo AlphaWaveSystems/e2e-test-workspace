@@ -12,4 +12,5 @@ class Routes {
   static const String device = '/device';
   static const String visual = '/visual';
   static const String dynamic = '/dynamic';
+  static const String signal = '/signal';
 }

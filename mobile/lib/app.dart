@@ -14,6 +14,7 @@ import 'features/gestures/presentation/pages/gestures_page.dart';
 import 'features/device/presentation/pages/device_page.dart';
 import 'features/visual/presentation/pages/visual_page.dart';
 import 'features/dynamic/presentation/pages/dynamic_page.dart';
+import 'features/signal/presentation/pages/signal_demo_page.dart';
 
 class ProbeTestApp extends StatelessWidget {
   const ProbeTestApp({super.key});
@@ -49,6 +50,7 @@ class ProbeTestApp extends StatelessWidget {
           Routes.device: (context) => const DevicePage(),
           Routes.visual: (context) => const VisualPage(),
           Routes.dynamic: (context) => const DynamicPage(),
+          Routes.signal: (context) => const SignalDemoPage(),
         },
       ),
     );
