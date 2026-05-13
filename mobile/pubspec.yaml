@@ -9,18 +9,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  nightowl_sdk:
+    path: /Users/patrickbertsch/dev/nightowl/sdk
   http: ^1.2.0
   provider: ^6.1.0
   get_it: ^8.0.0
   url_launcher: ^6.2.0
   shared_preferences: ^2.3.0
+  local_auth: ^2.3.0
+  flutter_probe_agent:
+    path: /Users/patrickbertsch/dev/flutter-probe/probe_agent
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
-  probe_agent:
-    path: /Users/patrickbertsch/dev/flutter-probe/probe_agent
 
 flutter:
   uses-material-design: true

@@ -39,6 +39,19 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  /// Marks the user as authenticated after a successful biometric capture.
+  /// Used by [BiometricLoginPage]; bypasses email/password since the OS
+  /// has already proven identity.
+  Future<void> loginWithBiometrics() async {
+    _currentUser = const User(
+      id: -1,
+      email: 'biometric@local',
+      name: 'Biometric User',
+    );
+    _error = null;
+    notifyListeners();
+  }
+
   void logout() {
     _currentUser = null;
     _error = null;

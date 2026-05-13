@@ -1,0 +1,32 @@
+# Face ID / Touch ID / fingerprint — matching capture path.
+#
+# Exercises FlutterProbe v0.9.8's `enroll biometric` and `biometric match`
+# steps. The app's BiometricLoginPage presents a Face ID prompt; a matching
+# capture should unlock and navigate to the dashboard.
+#
+# Runtime requirements:
+#   - iOS Simulator: nothing extra (probe.biometric_signal delivers the result)
+#   - Android emulator: pre-enroll fingerprint ID 1 in Settings before run
+#   - Physical devices: steps skip with a warning
+
+before all tests
+  enroll biometric
+
+test "matching face unlocks the app"
+  @smoke @biometric @happy
+  open the app
+  tap "Biometric Login"
+  wait until "Sign in with Face ID" appears
+  tap "Sign in with Face ID"
+  biometric match
+  wait until "Dashboard" appears
+  see "Dashboard"
+
+test "matching face works from a cold start"
+  @biometric
+  restart the app
+  tap "Biometric Login"
+  wait until "Sign in with Face ID" appears
+  tap "Sign in with Face ID"
+  biometric match
+  see "Dashboard"

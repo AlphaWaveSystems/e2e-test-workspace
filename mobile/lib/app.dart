@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'navigation/routes.dart';
 import 'navigation/home_page.dart';
 import 'features/auth/presentation/pages/login_page.dart';
+import 'features/auth/presentation/pages/biometric_login_page.dart';
 import 'features/auth/presentation/pages/dashboard_page.dart';
 import 'features/settings/presentation/pages/settings_page.dart';
 import 'features/settings/presentation/providers/settings_provider.dart';
@@ -39,6 +40,7 @@ class ProbeTestApp extends StatelessWidget {
         routes: {
           Routes.home: (context) => const HomePage(),
           Routes.login: (context) => const LoginPage(),
+          Routes.biometric: (context) => const BiometricLoginPage(),
           Routes.dashboard: (context) => const DashboardPage(),
           Routes.settings: (context) => const SettingsPage(),
           Routes.items: (context) => const ItemListPage(),

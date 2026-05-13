@@ -66,5 +66,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<!-- Required for local_auth on iOS — shown in the Face ID system
+	     prompt when BiometricLoginPage requests authentication. Exercises
+	     the flutter-probe v0.9.7 biometric match / no-match hooks. -->
+	<key>NSFaceIDUsageDescription</key>
+	<string>Authenticate to access your test session</string>
 </dict>
 </plist>

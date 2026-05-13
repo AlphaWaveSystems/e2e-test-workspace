@@ -1,0 +1,31 @@
+# Face ID / Touch ID / fingerprint — failure path.
+#
+# Exercises FlutterProbe v0.9.8's `biometric no match` step. The app should
+# surface an inline error banner and NOT navigate to the dashboard.
+
+before all tests
+  enroll biometric
+
+test "non-matching face shows error banner"
+  @biometric @unhappy
+  open the app
+  tap "Biometric Login"
+  wait until "Sign in with Face ID" appears
+  tap "Sign in with Face ID"
+  biometric no match
+  wait until "Authentication failed" appears
+  see "Authentication failed"
+  see "Sign in with Face ID"
+
+test "user can retry after non-match"
+  @biometric @recovery
+  open the app
+  tap "Biometric Login"
+  wait until "Sign in with Face ID" appears
+  tap "Sign in with Face ID"
+  biometric no match
+  wait until "Authentication failed" appears
+  see "Authentication failed"
+  tap "Sign in with Face ID"
+  biometric match
+  see "Dashboard"

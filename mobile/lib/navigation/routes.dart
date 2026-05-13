@@ -3,6 +3,7 @@ class Routes {
 
   static const String home = '/';
   static const String login = '/login';
+  static const String biometric = '/biometric';
   static const String dashboard = '/dashboard';
   static const String settings = '/settings';
   static const String items = '/items';
