@@ -1,5 +1,5 @@
 use "../recipes/auth.probe"
 
 test "successful login navigates to dashboard"
-  log in as "test@test.com", "password"
+  sign in as "test@test.com" "password"
   see "Dashboard"
