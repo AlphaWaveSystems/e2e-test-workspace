@@ -1,9 +1,9 @@
-recipe "log in as" (email, password)
+recipe "sign in as" (email, password)
   restart the app
   wait 5 seconds
   tap "Login"
   wait 2 seconds
-  type <email> into #email_field
-  type <password> into #password_field
+  type "<email>" into #email_field
+  type "<password>" into #password_field
   tap #sign_in_button
   wait 4 seconds
