@@ -1,13 +1,13 @@
 <!-- HARNESS:START
-     version=0.33.0
+     version=0.34.0
      schema=1
-     updated=2026-07-19T05:36:09Z
+     updated=2026-07-19T12:15:55Z
      DO NOT EDIT — regenerate with: harness-ctl update /Users/patrickbertsch/dev/e2e-test-workspace
 -->
 
 # Architecture — e2e-test-workspace
 
-> Auto-generated from constitution scan on 2026-07-19T05:36:09Z.
+> Auto-generated from constitution scan on 2026-07-19T12:15:55Z.
 > Reflects the state of the repo at install time — update manually as the project evolves,
 > or re-run `harness-ctl update /Users/patrickbertsch/dev/e2e-test-workspace` to refresh from the latest scan.
 
@@ -19,7 +19,7 @@
 |---|---|
 | Name | e2e-test-workspace |
 | Path | `/Users/patrickbertsch/dev/e2e-test-workspace` |
-| Repository | (not a git repo) |
+| Repository | https://github.com/AlphaWaveSystems/e2e-test-workspace.git |
 | Stack | generic |
 | Language(s) | (not detected) |
 | Runtime | (not detected) |
@@ -185,10 +185,10 @@ Variables the project reads at runtime. Do not commit values — use the harness
 Rules extracted from `CLAUDE.md` at install time:
 
 <!-- HARNESS:START
-     version=0.32.0
+     version=0.33.0
      schema=1
      agent=e2e-test-workspace
-     updated=2026-07-18T02:25:54Z
+     updated=2026-07-19T05:36:09Z
      DO NOT EDIT THIS BLOCK — regenerate with: harness-ctl update /Users/patrickbertsch/dev/e2e-test-workspace
 -->
 
