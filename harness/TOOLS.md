@@ -1,8 +1,8 @@
 <!-- HARNESS:START
-     version=0.32.0
+     version=0.33.0
      schema=1
      agent=e2e-test-workspace
-     updated=2026-07-18T02:25:54Z
+     updated=2026-07-19T05:36:09Z
      DO NOT EDIT — regenerate with: harness-ctl update /Users/patrickbertsch/dev/e2e-test-workspace
 -->
 
