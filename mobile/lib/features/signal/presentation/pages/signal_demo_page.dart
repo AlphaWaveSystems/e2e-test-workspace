@@ -77,38 +77,53 @@ class _SignalDemoPageState extends State<SignalDemoPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(height: 24),
-            ElevatedButton(
-              key: const ValueKey('request_push_permission'),
-              onPressed: _busy ? null : _requestPushPermission,
-              child: const Text('Request Push Permission'),
+            Semantics(
+              identifier: 'request_push_permission',
+              child: ElevatedButton(
+                key: const ValueKey('request_push_permission'),
+                onPressed: _busy ? null : _requestPushPermission,
+                child: const Text('Request Push Permission'),
+              ),
             ),
             const SizedBox(height: 12),
-            ElevatedButton(
-              key: const ValueKey('start_payment'),
-              onPressed: _busy ? null : _startPayment,
-              child: const Text('Start Payment'),
+            Semantics(
+              identifier: 'start_payment',
+              child: ElevatedButton(
+                key: const ValueKey('start_payment'),
+                onPressed: _busy ? null : _startPayment,
+                child: const Text('Start Payment'),
+              ),
             ),
             const SizedBox(height: 12),
-            ElevatedButton(
-              key: const ValueKey('open_deep_link'),
-              onPressed: _busy ? null : _openDeepLink,
-              child: const Text('Open Deep Link'),
+            Semantics(
+              identifier: 'open_deep_link',
+              child: ElevatedButton(
+                key: const ValueKey('open_deep_link'),
+                onPressed: _busy ? null : _openDeepLink,
+                child: const Text('Open Deep Link'),
+              ),
             ),
             if (_busy) ...[
               const SizedBox(height: 24),
-              const Center(
-                child: CircularProgressIndicator(
-                  key: ValueKey('signal_progress'),
+              Center(
+                child: Semantics(
+                  identifier: 'signal_progress',
+                  child: const CircularProgressIndicator(
+                    key: ValueKey('signal_progress'),
+                  ),
                 ),
               ),
             ],
             if (_status.isNotEmpty) ...[
               const SizedBox(height: 24),
-              Text(
-                _status,
-                key: const ValueKey('signal_status'),
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleMedium,
+              Semantics(
+                identifier: 'signal_status',
+                child: Text(
+                  _status,
+                  key: const ValueKey('signal_status'),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
               ),
             ],
           ],

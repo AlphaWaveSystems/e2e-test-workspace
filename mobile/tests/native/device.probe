@@ -1,0 +1,21 @@
+# Device-capability screen driven by native taps — Android only.
+# A `tap native` on the resource-id must mutate the same state that the
+# Flutter-side `see` then asserts, proving both selector styles hit one widget.
+
+test "native: device capability tap drives same widget as ValueKey"
+  @native
+  restart the app
+  wait 5 seconds
+  tap native "nav_device"
+  wait 2 seconds
+  see native "request_camera"
+  see "Camera: Not requested"
+  tap native "request_camera"
+  wait 1 seconds
+  see native "camera_status"
+  see "Camera: Granted"
+  tap native "request_location"
+  wait 1 seconds
+  see native "gps_display"
+  see "Location: Granted"
+  see "Location: 37.7749, -122.4194"

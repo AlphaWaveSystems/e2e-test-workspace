@@ -102,44 +102,62 @@ class _ApiPageState extends State<_ApiPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ElevatedButton(
-              key: const ValueKey('fetch_users_button'),
-              onPressed: _loading ? null : _fetchUsers,
-              child: const Text('Fetch Users'),
+            Semantics(
+              identifier: 'fetch_users_button',
+              child: ElevatedButton(
+                key: const ValueKey('fetch_users_button'),
+                onPressed: _loading ? null : _fetchUsers,
+                child: const Text('Fetch Users'),
+              ),
             ),
             const SizedBox(height: 8),
-            ElevatedButton(
-              key: const ValueKey('create_post_button'),
-              onPressed: _loading ? null : _createPost,
-              child: const Text('Create Post'),
+            Semantics(
+              identifier: 'create_post_button',
+              child: ElevatedButton(
+                key: const ValueKey('create_post_button'),
+                onPressed: _loading ? null : _createPost,
+                child: const Text('Create Post'),
+              ),
             ),
             const SizedBox(height: 16),
             if (_loading)
-              const Center(
-                child: CircularProgressIndicator(
-                  key: ValueKey('api_loading'),
+              Center(
+                child: Semantics(
+                  identifier: 'api_loading',
+                  child: const CircularProgressIndicator(
+                    key: ValueKey('api_loading'),
+                  ),
                 ),
               ),
             if (_error != null)
-              Text(
-                _error!,
-                key: const ValueKey('api_error'),
-                style: TextStyle(color: Theme.of(context).colorScheme.error, fontSize: 16),
+              Semantics(
+                identifier: 'api_error',
+                child: Text(
+                  _error!,
+                  key: const ValueKey('api_error'),
+                  style: TextStyle(color: Theme.of(context).colorScheme.error, fontSize: 16),
+                ),
               ),
             if (_users.isNotEmpty) ...[
               const Text('Users:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               ...List.generate(_users.length, (i) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Text(_users[i], key: ValueKey('user_$i')),
+                child: Semantics(
+                  identifier: 'user_$i',
+                  child: Text(_users[i], key: ValueKey('user_$i')),
+                ),
               )),
             ],
             if (_postResult != null)
               Padding(
                 padding: const EdgeInsets.only(top: 16),
-                child: Text(
-                  _postResult!,
-                  key: const ValueKey('post_result'),
-                  style: const TextStyle(fontSize: 16, color: Colors.green),
+                child: Semantics(
+                  identifier: 'post_result',
+                  child: Text(
+                    _postResult!,
+                    key: const ValueKey('post_result'),
+                    style: const TextStyle(fontSize: 16, color: Colors.green),
+                  ),
                 ),
               ),
           ],
@@ -160,10 +178,13 @@ class _PlaceholderPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       body: Center(
-        child: Text(
-          '$title — Coming Soon',
-          key: ValueKey('placeholder_$title'),
-          style: Theme.of(context).textTheme.headlineMedium,
+        child: Semantics(
+          identifier: 'placeholder_$title',
+          child: Text(
+            '$title — Coming Soon',
+            key: ValueKey('placeholder_$title'),
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
         ),
       ),
     );

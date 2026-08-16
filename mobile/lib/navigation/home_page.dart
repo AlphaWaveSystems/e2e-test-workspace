@@ -22,21 +22,30 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentTabIndex,
         onTap: (index) => setState(() => _currentTabIndex = index),
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, key: ValueKey('tab_home_icon')),
+            icon: Semantics(
+              identifier: 'tab_home_icon',
+              child: const Icon(Icons.home, key: ValueKey('tab_home_icon')),
+            ),
             label: 'Home',
-            key: ValueKey('tab_home'),
+            key: const ValueKey('tab_home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.science, key: ValueKey('tab_tests_icon')),
+            icon: Semantics(
+              identifier: 'tab_tests_icon',
+              child: const Icon(Icons.science, key: ValueKey('tab_tests_icon')),
+            ),
             label: 'Tests',
-            key: ValueKey('tab_tests'),
+            key: const ValueKey('tab_tests'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.info, key: ValueKey('tab_about_icon')),
+            icon: Semantics(
+              identifier: 'tab_about_icon',
+              child: const Icon(Icons.info, key: ValueKey('tab_about_icon')),
+            ),
             label: 'About',
-            key: ValueKey('tab_about'),
+            key: const ValueKey('tab_about'),
           ),
         ],
       ),
@@ -46,19 +55,25 @@ class _HomePageState extends State<HomePage> {
   Widget _buildBody() {
     switch (_currentTabIndex) {
       case 1:
-        return const Center(
-          child: Text(
-            'Test Suites',
-            key: ValueKey('tests_tab_content'),
-            style: TextStyle(fontSize: 18),
+        return Center(
+          child: Semantics(
+            identifier: 'tests_tab_content',
+            child: const Text(
+              'Test Suites',
+              key: ValueKey('tests_tab_content'),
+              style: TextStyle(fontSize: 18),
+            ),
           ),
         );
       case 2:
-        return const Center(
-          child: Text(
-            'About FlutterProbe Test App',
-            key: ValueKey('about_tab_content'),
-            style: TextStyle(fontSize: 18),
+        return Center(
+          child: Semantics(
+            identifier: 'about_tab_content',
+            child: const Text(
+              'About FlutterProbe Test App',
+              key: ValueKey('about_tab_content'),
+              style: TextStyle(fontSize: 18),
+            ),
           ),
         );
       default:
@@ -69,13 +84,16 @@ class _HomePageState extends State<HomePage> {
   Widget _buildHomeContent() {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text(
-            'Welcome to the FlutterProbe Test App',
-            key: ValueKey('welcome_text'),
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Semantics(
+            identifier: 'welcome_text',
+            child: const Text(
+              'Welcome to the FlutterProbe Test App',
+              key: ValueKey('welcome_text'),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
         Expanded(
@@ -95,12 +113,15 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text(
-            'Version 1.0',
-            key: ValueKey('version_text'),
-            style: TextStyle(color: Colors.grey, fontSize: 12),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Semantics(
+            identifier: 'version_text',
+            child: const Text(
+              'Version 1.0',
+              key: ValueKey('version_text'),
+              style: TextStyle(color: Colors.grey, fontSize: 12),
+            ),
           ),
         ),
       ],
@@ -108,12 +129,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _navTile(String title, IconData icon, String route, String keyName) {
-    return ListTile(
-      key: ValueKey(keyName),
-      leading: Icon(icon),
-      title: Text(title),
-      trailing: const Icon(Icons.chevron_right),
-      onTap: () => Navigator.pushNamed(context, route),
+    return Semantics(
+      identifier: keyName,
+      child: ListTile(
+        key: ValueKey(keyName),
+        leading: Icon(icon),
+        title: Text(title),
+        trailing: const Icon(Icons.chevron_right),
+        onTap: () => Navigator.pushNamed(context, route),
+      ),
     );
   }
 }

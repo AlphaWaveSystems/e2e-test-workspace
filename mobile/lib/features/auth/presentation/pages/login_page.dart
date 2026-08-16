@@ -54,73 +54,91 @@ class _LoginPageState extends State<LoginPage> {
                   color: Theme.of(context).colorScheme.primary,
                 ),
                 const SizedBox(height: 32),
-                TextField(
-                  key: const ValueKey('email_field'),
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    hintText: 'Enter your email',
-                    prefixIcon: Icon(Icons.email_outlined),
-                    border: OutlineInputBorder(),
+                Semantics(
+                  identifier: 'email_field',
+                  child: TextField(
+                    key: const ValueKey('email_field'),
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                      hintText: 'Enter your email',
+                      prefixIcon: Icon(Icons.email_outlined),
+                      border: OutlineInputBorder(),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
-                TextField(
-                  key: const ValueKey('password_field'),
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                    hintText: 'Enter your password',
-                    prefixIcon: Icon(Icons.lock_outlined),
-                    border: OutlineInputBorder(),
+                Semantics(
+                  identifier: 'password_field',
+                  child: TextField(
+                    key: const ValueKey('password_field'),
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Password',
+                      hintText: 'Enter your password',
+                      prefixIcon: Icon(Icons.lock_outlined),
+                      border: OutlineInputBorder(),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 8),
                 if (auth.error != null)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      auth.error!,
-                      key: const ValueKey('error_message'),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.error,
-                        fontSize: 14,
+                    child: Semantics(
+                      identifier: 'error_message',
+                      child: Text(
+                        auth.error!,
+                        key: const ValueKey('error_message'),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.error,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ),
                 const SizedBox(height: 16),
                 if (auth.isLoading)
-                  const Center(
-                    child: CircularProgressIndicator(
-                      key: ValueKey('loading_indicator'),
+                  Center(
+                    child: Semantics(
+                      identifier: 'loading_indicator',
+                      child: const CircularProgressIndicator(
+                        key: ValueKey('loading_indicator'),
+                      ),
                     ),
                   )
                 else
-                  ElevatedButton(
-                    key: const ValueKey('sign_in_button'),
-                    onPressed: _handleSignIn,
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                    ),
-                    child: const Text(
-                      'Sign In',
-                      style: TextStyle(fontSize: 16),
+                  Semantics(
+                    identifier: 'sign_in_button',
+                    child: ElevatedButton(
+                      key: const ValueKey('sign_in_button'),
+                      onPressed: _handleSignIn,
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                      ),
+                      child: const Text(
+                        'Sign In',
+                        style: TextStyle(fontSize: 16),
+                      ),
                     ),
                   ),
                 const SizedBox(height: 12),
-                TextButton(
-                  key: const ValueKey('forgot_password'),
-                  onPressed: () {
-                    // Placeholder for forgot password flow
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Password reset not implemented'),
-                      ),
-                    );
-                  },
-                  child: const Text('Forgot Password?'),
+                Semantics(
+                  identifier: 'forgot_password',
+                  child: TextButton(
+                    key: const ValueKey('forgot_password'),
+                    onPressed: () {
+                      // Placeholder for forgot password flow
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Password reset not implemented'),
+                        ),
+                      );
+                    },
+                    child: const Text('Forgot Password?'),
+                  ),
                 ),
               ],
             ),
