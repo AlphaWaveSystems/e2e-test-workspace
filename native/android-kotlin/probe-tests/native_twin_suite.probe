@@ -1,0 +1,213 @@
+# Native-verb suite against the Kotlin/Compose twin of the Flutter probe
+# test app (native/android-kotlin, applicationId
+# com.alphawavesystems.probe_test_app_native).
+#
+# Run pattern (same as flutter-probe/native-test-apps/android):
+#
+#   1. A ProbeAgent host app (e.g. the Flutter twin in mobile/) is running
+#      and connected — probe's session lives there; the native verb family
+#      is CLI-side (uiautomator via adb) and never touches the Dart agent.
+#   2. Bring this native app to the foreground BEFORE the run, at the Home
+#      screen:
+#        adb shell am start -n com.alphawavesystems.probe_test_app_native/.MainActivity
+#   3. No before-each restart hook — restarting would foreground the host
+#      app and hide the native UI under test.
+#   4. Biometric tests: pre-enroll fingerprint ID 1 in the emulator's
+#      Settings once (`enroll biometric` is a no-op on Android); `biometric
+#      match` / `biometric no match` drive `adb emu finger touch`.
+#
+# Element queries use the same names as the Flutter app's ValueKeys — the
+# Compose app surfaces every Modifier.testTag as a uiautomator resource-id
+# (testTagsAsResourceId), so `#key` selectors in Flutter tests map 1:1 to
+# `native` queries here. Matching is case-insensitive substring over text
+# and resource-id, and uiautomator only sees on-screen elements, so tests
+# stick to elements visible without scrolling (there is no `scroll native`).
+
+test "home shell: tabs and nav list"
+  see native "FlutterProbe Test App"
+  see native "welcome_text"
+  see native "Version 1.0"
+  see native "nav_login"
+  see native "nav_dynamic"
+  tap native "tab_tests"
+  wait 1 seconds
+  see native "Test Suites"
+  tap native "tab_about"
+  wait 1 seconds
+  see native "About FlutterProbe Test App"
+  tap native "tab_home"
+  wait 1 seconds
+  see native "Welcome to the FlutterProbe Test App"
+
+test "login succeeds with valid credentials"
+  tap native "nav_login"
+  wait 2 seconds
+  see native "email_field"
+  type native "test@test.com" into "email_field"
+  type native "password" into "password_field"
+  wait 1 seconds
+  tap native "sign_in_button"
+  wait 3 seconds
+  see native "Dashboard"
+  see native "Welcome, Test User"
+  see native "stat_card_1"
+  tap native "logout_button"
+  wait 2 seconds
+  see native "welcome_text"
+
+test "login rejects invalid credentials"
+  tap native "nav_login"
+  wait 2 seconds
+  type native "wrong@test.com" into "email_field"
+  type native "nope" into "password_field"
+  wait 1 seconds
+  tap native "sign_in_button"
+  wait 3 seconds
+  see native "Invalid email or password"
+  tap native "back_button"
+  wait 2 seconds
+  see native "welcome_text"
+
+test "item list: read, add feedback, and search filter"
+  tap native "nav_items"
+  wait 2 seconds
+  see native "scrollable_list"
+  see native "list_item_0"
+  see native "Item 0"
+  tap native "fab_add"
+  wait 1 seconds
+  see native "Add item tapped"
+  type native "Item 49" into "search_field"
+  wait 2 seconds
+  see native "Item 49"
+  don't see native "Item 12"
+  tap native "back_button"
+  wait 2 seconds
+  see native "welcome_text"
+
+test "gesture recognition via native tap"
+  tap native "nav_gestures"
+  wait 2 seconds
+  see native "Gesture Count: 0"
+  see native "Taps: 0"
+  tap native "tap_capture_area"
+  wait 1 seconds
+  see native "Taps: 1"
+  see native "Gesture Count: 1"
+  tap native "tap_capture_area"
+  wait 1 seconds
+  see native "Taps: 2"
+  see native "Gesture Count: 2"
+  see native "drag_source"
+  see native "drag_target"
+  see native "double_tap_area"
+  tap native "back_button"
+  wait 2 seconds
+  see native "welcome_text"
+
+test "device capabilities: camera and GPS grants"
+  tap native "nav_device"
+  wait 2 seconds
+  see native "Camera: Not requested"
+  tap native "request_camera"
+  wait 1 seconds
+  see native "Camera: Granted"
+  tap native "request_location"
+  wait 1 seconds
+  see native "Location: Granted"
+  see native "Location: 37.7749, -122.4194"
+  tap native "back_button"
+  wait 2 seconds
+  see native "welcome_text"
+
+test "visual counter increments"
+  tap native "nav_visual"
+  wait 2 seconds
+  see native "Visual Test"
+  see native "Count: 0"
+  tap native "increment_button"
+  wait 1 seconds
+  see native "Count: 1"
+  tap native "back_button"
+  wait 2 seconds
+  see native "welcome_text"
+
+test "dynamic screen: error dialog opens and closes"
+  tap native "nav_dynamic"
+  wait 2 seconds
+  see native "Countdown"
+  see native "fade_widget"
+  tap native "trigger_error"
+  wait 1 seconds
+  see native "Something went wrong!"
+  tap native "OK"
+  wait 1 seconds
+  don't see native "Something went wrong!"
+  tap native "back_button"
+  wait 2 seconds
+  see native "welcome_text"
+
+test "signal demo: payment resolves"
+  tap native "nav_signal"
+  wait 2 seconds
+  see native "start_payment"
+  tap native "start_payment"
+  wait 3 seconds
+  see native "Payment confirmed"
+  tap native "back_button"
+  wait 2 seconds
+  see native "welcome_text"
+
+test "api demo: fetch users and create post"
+  tap native "nav_api"
+  wait 2 seconds
+  see native "API Demo"
+  tap native "fetch_users_button"
+  wait 3 seconds
+  see native "Leanne Graham"
+  see native "Clementine Bauch"
+  tap native "create_post_button"
+  wait 2 seconds
+  see native "Post created with id: 101"
+  tap native "back_button"
+  wait 2 seconds
+  see native "welcome_text"
+
+test "settings: language selection and save"
+  tap native "nav_settings"
+  wait 2 seconds
+  see native "dark_mode_toggle"
+  see native "notifications_toggle"
+  see native "terms_checkbox"
+  see native "Build: 1.0.42+dev"
+  tap native "language_dropdown"
+  wait 1 seconds
+  see native "Spanish"
+  tap native "Spanish"
+  wait 1 seconds
+  see native "Spanish"
+  tap native "save_button"
+  wait 1 seconds
+  see native "Settings saved"
+  tap native "back_button"
+  wait 2 seconds
+  see native "welcome_text"
+
+test "biometric: no match shows error, match reaches dashboard"
+  enroll biometric
+  tap native "nav_biometric"
+  wait 2 seconds
+  see native "biometric_prompt_intro"
+  tap native "sign_in_with_face_id"
+  wait 2 seconds
+  biometric no match
+  wait 2 seconds
+  see native "Authentication failed"
+  tap native "sign_in_with_face_id"
+  wait 2 seconds
+  biometric match
+  wait 3 seconds
+  see native "Welcome, Biometric User"
+  tap native "logout_button"
+  wait 2 seconds
+  see native "welcome_text"
