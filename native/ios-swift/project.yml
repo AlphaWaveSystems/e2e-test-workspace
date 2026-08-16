@@ -1,0 +1,57 @@
+name: ProbeNativeTwin
+options:
+  bundleIdPrefix: com.alphawavesystems
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+targets:
+  ProbeNativeTwin:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - Sources
+    info:
+      path: Sources/Info.plist
+      properties:
+        CFBundleDisplayName: Probe Native Twin
+        CFBundleShortVersionString: "1.0.0"
+        CFBundleVersion: "1"
+        UILaunchScreen: {}
+        NSFaceIDUsageDescription: "Biometric login test screen uses Face ID."
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.alphawavesystems.probeTestApp.native
+        PRODUCT_NAME: ProbeNativeTwin
+        TARGETED_DEVICE_FAMILY: "1"
+        SWIFT_VERSION: "5.9"
+        CODE_SIGN_STYLE: Automatic
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+  ProbeNativeTwinUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - UITests
+    dependencies:
+      - target: ProbeNativeTwin
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.alphawavesystems.probeTestApp.native.uitests
+        SWIFT_VERSION: "5.9"
+        CODE_SIGN_STYLE: Automatic
+        TEST_TARGET_NAME: ProbeNativeTwin
+schemes:
+  ProbeNativeTwin:
+    build:
+      targets:
+        ProbeNativeTwin: all
+        ProbeNativeTwinUITests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - ProbeNativeTwinUITests
