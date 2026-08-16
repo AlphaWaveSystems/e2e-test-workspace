@@ -30,10 +30,13 @@ class _GesturesPageState extends State<GesturesPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Gesture Count: $_gestureCount',
-              key: const ValueKey('gesture_count'),
-              style: Theme.of(context).textTheme.titleMedium,
+            Semantics(
+              identifier: 'gesture_count',
+              child: Text(
+                'Gesture Count: $_gestureCount',
+                key: const ValueKey('gesture_count'),
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
             ),
             const SizedBox(height: 24),
 
@@ -57,15 +60,18 @@ class _GesturesPageState extends State<GesturesPage> {
                     color: Colors.blue.withOpacity(0.3),
                   ),
                   onDragCompleted: _incrementGestureCount,
-                  child: Container(
-                    key: const ValueKey('drag_source'),
-                    width: 80,
-                    height: 80,
-                    color: Colors.blue,
-                    alignment: Alignment.center,
-                    child: const Text(
-                      'Drag',
-                      style: TextStyle(color: Colors.white),
+                  child: Semantics(
+                    identifier: 'drag_source',
+                    child: Container(
+                      key: const ValueKey('drag_source'),
+                      width: 80,
+                      height: 80,
+                      color: Colors.blue,
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Drag',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
@@ -76,15 +82,18 @@ class _GesturesPageState extends State<GesturesPage> {
                     });
                   },
                   builder: (context, candidateData, rejectedData) {
-                    return Container(
-                      key: const ValueKey('drag_target'),
-                      width: 80,
-                      height: 80,
-                      color: _dragAccepted ? Colors.greenAccent : Colors.green,
-                      alignment: Alignment.center,
-                      child: Text(
-                        _dragAccepted ? 'Done!' : 'Drop',
-                        style: const TextStyle(color: Colors.white),
+                    return Semantics(
+                      identifier: 'drag_target',
+                      child: Container(
+                        key: const ValueKey('drag_target'),
+                        width: 80,
+                        height: 80,
+                        color: _dragAccepted ? Colors.greenAccent : Colors.green,
+                        alignment: Alignment.center,
+                        child: Text(
+                          _dragAccepted ? 'Done!' : 'Drop',
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
                     );
                   },
@@ -97,22 +106,25 @@ class _GesturesPageState extends State<GesturesPage> {
             const Text('Double Tap',
                 style: TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            GestureDetector(
-              key: const ValueKey('double_tap_area'),
-              onDoubleTap: () {
-                setState(() {
-                  _doubleTapCount++;
-                });
-                _incrementGestureCount();
-              },
-              child: Container(
-                width: double.infinity,
-                height: 80,
-                color: Colors.orange.shade100,
-                alignment: Alignment.center,
-                child: Text(
-                  'Double taps: $_doubleTapCount',
-                  style: const TextStyle(fontSize: 16),
+            Semantics(
+              identifier: 'double_tap_area',
+              child: GestureDetector(
+                key: const ValueKey('double_tap_area'),
+                onDoubleTap: () {
+                  setState(() {
+                    _doubleTapCount++;
+                  });
+                  _incrementGestureCount();
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 80,
+                  color: Colors.orange.shade100,
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Double taps: $_doubleTapCount',
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 ),
               ),
             ),
@@ -122,38 +134,41 @@ class _GesturesPageState extends State<GesturesPage> {
             const Text('Long Press',
                 style: TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            GestureDetector(
-              key: const ValueKey('long_press_area'),
-              onLongPressStart: (details) {
-                _incrementGestureCount();
-                final overlay = Overlay.of(context).context.findRenderObject()
-                    as RenderBox;
-                showMenu(
-                  context: context,
-                  position: RelativeRect.fromRect(
-                    details.globalPosition & const Size(1, 1),
-                    Offset.zero & overlay.size,
+            Semantics(
+              identifier: 'long_press_area',
+              child: GestureDetector(
+                key: const ValueKey('long_press_area'),
+                onLongPressStart: (details) {
+                  _incrementGestureCount();
+                  final overlay = Overlay.of(context).context.findRenderObject()
+                      as RenderBox;
+                  showMenu(
+                    context: context,
+                    position: RelativeRect.fromRect(
+                      details.globalPosition & const Size(1, 1),
+                      Offset.zero & overlay.size,
+                    ),
+                    items: [
+                      const PopupMenuItem(
+                        value: 'copy',
+                        child: Text('Copy'),
+                      ),
+                      const PopupMenuItem(
+                        value: 'delete',
+                        child: Text('Delete'),
+                      ),
+                    ],
+                  );
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 80,
+                  color: Colors.purple.shade100,
+                  alignment: Alignment.center,
+                  child: const Text(
+                    'Long press me',
+                    style: TextStyle(fontSize: 16),
                   ),
-                  items: [
-                    const PopupMenuItem(
-                      value: 'copy',
-                      child: Text('Copy'),
-                    ),
-                    const PopupMenuItem(
-                      value: 'delete',
-                      child: Text('Delete'),
-                    ),
-                  ],
-                );
-              },
-              child: Container(
-                width: double.infinity,
-                height: 80,
-                color: Colors.purple.shade100,
-                alignment: Alignment.center,
-                child: const Text(
-                  'Long press me',
-                  style: TextStyle(fontSize: 16),
                 ),
               ),
             ),
@@ -164,25 +179,28 @@ class _GesturesPageState extends State<GesturesPage> {
                 style: TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             if (_swipeCardVisible)
-              Dismissible(
-                key: const ValueKey('swipe_card'),
-                onDismissed: (_) {
-                  setState(() {
-                    _swipeCardVisible = false;
-                  });
-                  _incrementGestureCount();
-                },
-                background: Container(
-                  color: Colors.red,
-                  alignment: Alignment.centerRight,
-                  padding: const EdgeInsets.only(right: 16),
-                  child:
-                      const Icon(Icons.delete, color: Colors.white),
-                ),
-                child: Card(
-                  child: ListTile(
-                    title: const Text('Swipe me to dismiss'),
-                    leading: const Icon(Icons.swipe),
+              Semantics(
+                identifier: 'swipe_card',
+                child: Dismissible(
+                  key: const ValueKey('swipe_card'),
+                  onDismissed: (_) {
+                    setState(() {
+                      _swipeCardVisible = false;
+                    });
+                    _incrementGestureCount();
+                  },
+                  background: Container(
+                    color: Colors.red,
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.only(right: 16),
+                    child:
+                        const Icon(Icons.delete, color: Colors.white),
+                  ),
+                  child: Card(
+                    child: ListTile(
+                      title: const Text('Swipe me to dismiss'),
+                      leading: const Icon(Icons.swipe),
+                    ),
                   ),
                 ),
               )

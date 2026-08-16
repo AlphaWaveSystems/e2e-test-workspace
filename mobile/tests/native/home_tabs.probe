@@ -1,0 +1,30 @@
+# Native UI-automation verb coverage — Android only (uiautomator resource-id).
+#
+# Every widget in this app carries both a ValueKey('name') (Flutter-side #name
+# selector) and a Semantics(identifier: 'name') wrapper, which Flutter maps to
+# Android's viewIdResourceName / iOS accessibilityIdentifier. These tests drive
+# the app purely through the OS accessibility tree (`tap native` / `see native`)
+# and cross-check with Flutter-side `see` to prove both selector styles resolve
+# to the same widget.
+#
+# Run with the Android config:
+#   probe test tests/native/ --config tests/probe.android.yaml -v -y
+
+test "native: home tab navigation by resource-id"
+  @native
+  restart the app
+  wait 5 seconds
+  see native "welcome_text"
+  see native "version_text"
+  tap native "tab_tests_icon"
+  wait 1 seconds
+  see native "tests_tab_content"
+  see "Test Suites"
+  tap native "tab_about_icon"
+  wait 1 seconds
+  see native "about_tab_content"
+  see "About FlutterProbe Test App"
+  tap native "tab_home_icon"
+  wait 1 seconds
+  see native "welcome_text"
+  see "Welcome to the FlutterProbe Test App"

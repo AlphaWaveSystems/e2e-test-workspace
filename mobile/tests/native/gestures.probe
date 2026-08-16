@@ -1,0 +1,20 @@
+# Gesture surfaces exposed by resource-id — Android only.
+# Native verbs only cover tap/type/see, so the drag/double-tap/long-press/swipe
+# interactions themselves stay in the Flutter-side suites; here we prove the
+# gesture hit-areas are reachable from the OS accessibility tree.
+
+test "native: gesture areas exposed by resource-id"
+  @native
+  restart the app
+  wait 5 seconds
+  tap native "nav_gestures"
+  wait 2 seconds
+  see native "gesture_count"
+  see "Gesture Count: 0"
+  see native "drag_source"
+  see native "drag_target"
+  see native "double_tap_area"
+  scroll down
+  wait 1 seconds
+  see native "long_press_area"
+  see native "swipe_card"
