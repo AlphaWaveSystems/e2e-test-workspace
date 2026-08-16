@@ -1,0 +1,208 @@
+# ============================================================================
+# PENDING N-2 iOS NATIVE UI BRIDGE — NOT YET RUNNABLE
+#
+# flutter-probe's `tap`/`type`/`see`/`wait until` verbs currently drive apps
+# through the embedded flutter_probe_agent Dart package, which only exists
+# inside Flutter apps. This app (native/ios-swift) is plain SwiftUI with no
+# Flutter runtime, so none of those verbs can reach it today.
+#
+# iOS support for driving arbitrary native UI (via WebDriverAgent/XCTest) is
+# tracked as proposal N-2 in flutter-probe:
+#   docs/proposals/n2-ios-native-ui-bridging.md
+# As of this writing it is a scoped, written proposal — NOT implemented.
+# See flutter-probe/website/src/content/docs/platform/ios.md, "Native UI
+# Automation" section, for current status.
+#
+# This file records the intended test scenarios for the native twin so it is
+# ready to run the moment N-2 lands. Every selector below (#key) maps 1:1 to
+# an .accessibilityIdentifier already present in the SwiftUI source, verified
+# to resolve via a standalone XCUITest smoke suite
+# (native/ios-swift/UITests/ProbeNativeTwinUITests.swift) — see the PR
+# description for confirmation this build/install/identifier-resolution step
+# was actually run, since ProbeScript itself cannot yet exercise this app.
+#
+# Biometric match/no-match ARE independently testable today (flutter-probe
+# drives Face ID/Touch ID at the Simulator level via `xcrun simctl ...
+# notifyutil`, not through the app), but the surrounding `tap`/`wait until`
+# steps around them still require N-2. The `deliver signal` verb has no
+# native-app equivalent at all yet — this app has no probe-agent socket
+# bridge, so its Signal Demo screen always takes the same fallback path the
+# Flutter twin uses when PROBE_AGENT is unset (see SignalStore in
+# Sources/App/Stores.swift). Treat those two tests as an additional,
+# separate gap beyond N-2.
+# ============================================================================
+
+test "home screen shows all navigation tiles"
+  open the app
+  wait until "Welcome to the FlutterProbe Test App" appears
+  see "FlutterProbe Test App"
+  see "Welcome to the FlutterProbe Test App"
+  see "Version 1.0"
+  see "Login"
+  see "Biometric Login"
+  see "Signal Demo"
+  see "Dashboard"
+  see "Settings"
+  see "Items"
+  see "Gestures"
+  see "API Tests"
+  see "Device"
+  see "Visual"
+  see "Dynamic"
+
+test "bottom tab bar switches content"
+  open the app
+  tap #tab_tests
+  see "Test Suites"
+  tap #tab_about
+  see "About FlutterProbe Test App"
+  tap #tab_home
+  see "Welcome to the FlutterProbe Test App"
+
+test "login with valid credentials reaches dashboard"
+  open the app
+  tap "Login"
+  wait until "Sign In" appears
+  type "test@test.com" into #email_field
+  type "password" into #password_field
+  tap #sign_in_button
+  wait until "Dashboard" appears
+  see "Welcome, Test User"
+
+test "login with invalid credentials shows error"
+  open the app
+  tap "Login"
+  wait until "Sign In" appears
+  type "wrong@test.com" into #email_field
+  type "badpass" into #password_field
+  tap #sign_in_button
+  wait until "Invalid email or password" appears
+  see "Invalid email or password"
+
+test "biometric match unlocks the app"
+  before all tests: enroll biometric
+  open the app
+  tap "Biometric Login"
+  wait until "Sign in with Face ID" appears
+  tap "Sign in with Face ID"
+  biometric match
+  wait until "Dashboard" appears
+  see "Welcome, Biometric User"
+
+test "biometric no-match shows error banner"
+  before all tests: enroll biometric
+  open the app
+  tap "Biometric Login"
+  wait until "Sign in with Face ID" appears
+  tap "Sign in with Face ID"
+  biometric no match
+  wait until "Authentication failed" appears
+  see "Sign in with Face ID"
+
+test "dashboard reachable without auth shows Guest"
+  open the app
+  tap "Dashboard"
+  see "Welcome, Guest"
+  see "Tests Run"
+  see "42"
+  see "Passed"
+  see "38"
+  tap #item_0
+  see "Tapped item 1"
+  tap #refresh_button
+  see "Refreshed"
+  tap #logout_button
+  see "FlutterProbe Test App"
+
+test "settings toggles and dropdown"
+  open the app
+  tap "Settings"
+  see "Dark Mode"
+  tap #dark_mode_toggle
+  tap #notifications_toggle
+  tap #terms_checkbox
+  see "Build: 1.0.42+dev"
+  tap #save_button
+  see "Settings saved"
+
+test "items search and delete"
+  open the app
+  tap "Items"
+  see "Item 0"
+  type "Item 5" into #search_field
+  wait 1 seconds
+  clear #search_field
+  swipe left on #dismissible_0
+  tap #fab_add
+  see "Add item tapped"
+
+test "gestures double tap and drag"
+  open the app
+  tap "Gestures"
+  see "Double taps: 0"
+  double tap #double_tap_area
+  see "Double taps: 1"
+  long press #long_press_area
+  see "Copy"
+  see "Delete"
+  see "Drop"
+  drag #drag_source to #drag_target
+  see "Done!"
+  swipe right
+  see "Card dismissed!"
+
+test "api demo fetch and post"
+  open the app
+  tap "API Tests"
+  tap #fetch_users_button
+  wait until "Leanne Graham" appears
+  tap #create_post_button
+  wait until "Post created with id: 101" appears
+
+test "device permissions and clipboard"
+  open the app
+  scroll down
+  tap "Device"
+  see "Permissions"
+  tap #request_camera
+  see "Camera: Granted"
+  tap #request_location
+  see "Location: 37.7749, -122.4194"
+  copy "Hello World" to clipboard
+  tap #paste_button
+  see "Hello World"
+
+test "visual regression baseline"
+  open the app
+  scroll down
+  tap "Visual"
+  see "Visual Test"
+  see "Red"
+  see "Green"
+  see "Blue"
+  see "Yellow"
+  see "Count: 0"
+  tap #increment_button
+  see "Count: 1"
+  take screenshot "native_visual_baseline"
+
+test "dynamic countdown and repeat action"
+  open the app
+  scroll down
+  tap "Dynamic"
+  see "Tapped: 0"
+  repeat 3 times
+    tap #repeat_action
+  see "Tapped: 3"
+  tap #trigger_error
+  see "Something went wrong!"
+  tap "OK"
+
+# --- Not portable even after N-2: no signal-delivery bridge exists yet ---
+# test "signal demo push permission"
+#   open the app
+#   tap #nav_signal
+#   tap "Request Push Permission"
+#   see "Waiting for permission…"
+#   deliver signal "push_permission"
+#   see "Notifications enabled"

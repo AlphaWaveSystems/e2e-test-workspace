@@ -5,7 +5,8 @@ Test workspace for [FlutterProbe](https://github.com/AlphaWaveSystems/flutter-pr
 ## Structure
 
 ```
-mobile/       Flutter test app (iOS + Android) — 11 screens, 78 E2E tests
+mobile/               Flutter test app (iOS + Android) — 11 screens, 78 E2E tests
+native/ios-swift/     Native SwiftUI twin of the Flutter app — same 11 screens, 1:1 accessibilityIdentifiers
 ```
 
 ## Mobile App
@@ -27,6 +28,16 @@ The `BiometricLoginPage` exercises the new `enroll biometric` / `biometric match
 - iOS: just a running simulator (notifyutil drives the prompt — no extra setup)
 - Android: emulator with fingerprint ID `1` pre-enrolled in Settings → Security
 - Physical devices skip these steps with a warning (`set location`-style behavior)
+
+## Native iOS Twin
+
+[`native/ios-swift/`](native/ios-swift/) is a hand-built SwiftUI app that replicates all 11 `mobile/` screens with real (not stubbed) behavior — same navigation shape, same state transitions, same assertable text. Every interactive/assertable view carries an `.accessibilityIdentifier` that mirrors the Flutter app's `ValueKey` 1:1 (e.g. `tab_home`, `nav_login`, `sign_in_button`), so the same test scenarios can eventually run against both frameworks with only the selector syntax changing.
+
+- Bundle id `com.alphawavesystems.probeTestApp.native` (distinct from the Flutter app's `com.alphawavesystems.probeTestApp`, so both can be installed on one simulator at once).
+- Biometric Login uses real `LocalAuthentication` (Face ID/Touch ID), matching the Flutter screen's enrollment/match/no-match flow.
+- Built via `xcodegen` + `xcodebuild`, same pattern as `flutter-probe/native-test-apps/ios/`. See `native/ios-swift/project.yml`.
+
+**Not yet runnable end-to-end via ProbeScript.** FlutterProbe drives apps through an embedded Flutter agent package that only exists inside Flutter apps; iOS support for driving arbitrary native UI (WebDriverAgent/XCTest-based) is tracked as proposal **N-2** in the flutter-probe repo (`docs/proposals/n2-ios-native-ui-bridging.md`) and is **not yet implemented** as of this writing. `native/ios-swift/probe-tests/native_suite.probe` records the intended test scenarios, clearly marked pending at the top of the file, ready to run once N-2 lands. In the meantime, `native/ios-swift/UITests/ProbeNativeTwinUITests.swift` is a standalone XCUITest smoke suite that verifies the key accessibilityIdentifiers actually resolve at runtime.
 
 ## Running Tests
 
