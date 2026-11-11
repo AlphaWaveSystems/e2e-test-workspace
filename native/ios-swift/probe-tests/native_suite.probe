@@ -80,7 +80,7 @@ test "login with invalid credentials shows error"
   see "Invalid email or password"
 
 test "biometric match unlocks the app"
-  before all tests: enroll biometric
+  enroll biometric
   open the app
   tap "Biometric Login"
   wait until "Sign in with Face ID" appears
@@ -90,7 +90,7 @@ test "biometric match unlocks the app"
   see "Welcome, Biometric User"
 
 test "biometric no-match shows error banner"
-  before all tests: enroll biometric
+  enroll biometric
   open the app
   tap "Biometric Login"
   wait until "Sign in with Face ID" appears
