@@ -1,3 +1,6 @@
+# Run with -y (--yes): "clear app data" is a destructive operation, and the CLI refuses it without the flag.
+# The run command in mobile/README.md already passes -y.
+
 test "restart app preserves state"
   @device @lifecycle
   restart the app
