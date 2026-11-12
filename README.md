@@ -5,7 +5,9 @@ Test workspace for [FlutterProbe](https://github.com/AlphaWaveSystems/flutter-pr
 ## Structure
 
 ```
-mobile/       Flutter test app (iOS + Android) — 11 screens, 82 E2E tests
+mobile/               Flutter test app (iOS + Android) — 11 screens, 82 E2E tests
+native/ios-swift/     Native SwiftUI twin of the Flutter app — same 11 screens, 1:1 accessibilityIdentifiers
+native/android-kotlin/  Native Android twin (Kotlin + Jetpack Compose) — same 11 screens, for native-verb testing
 ```
 
 ## Mobile App
@@ -40,6 +42,27 @@ Android package id (`com.alphawavesystems.probe_test_app`):
 ```bash
 cd mobile
 probe test tests/native/ --config tests/probe.android.yaml --device emulator-5554 --reconnect-delay 5s -v -y
+```
+
+## Native iOS Twin
+
+[`native/ios-swift/`](native/ios-swift/) is a hand-built SwiftUI app that replicates all 11 `mobile/` screens with real (not stubbed) behavior — same navigation shape, same state transitions, same assertable text. Every interactive/assertable view carries an `.accessibilityIdentifier` that mirrors the Flutter app's `ValueKey` 1:1 (e.g. `tab_home`, `nav_login`, `sign_in_button`), so the same test scenarios can eventually run against both frameworks with only the selector syntax changing.
+
+- Bundle id `com.alphawavesystems.probeTestApp.native` (distinct from the Flutter app's `com.alphawavesystems.probeTestApp`, so both can be installed on one simulator at once).
+- Biometric Login uses real `LocalAuthentication` (Face ID/Touch ID), matching the Flutter screen's enrollment/match/no-match flow.
+- Built via `xcodegen` + `xcodebuild`, same pattern as `flutter-probe/native-test-apps/ios/`. See `native/ios-swift/project.yml`.
+
+**Not yet runnable end-to-end via ProbeScript.** FlutterProbe drives apps through an embedded Flutter agent package that only exists inside Flutter apps; iOS support for driving arbitrary native UI (WebDriverAgent/XCTest-based) is tracked as proposal **N-2** in the flutter-probe repo (`docs/proposals/n2-ios-native-ui-bridging.md`) and is **not yet implemented** as of this writing. `native/ios-swift/probe-tests/native_suite.probe` records the intended test scenarios, clearly marked pending at the top of the file, ready to run once N-2 lands. In the meantime, `native/ios-swift/UITests/ProbeNativeTwinUITests.swift` is a standalone XCUITest smoke suite that verifies the key accessibilityIdentifiers actually resolve at runtime.
+
+## Native Android Twin
+
+[`native/android-kotlin/`](native/android-kotlin/) is a full native Android replica of the Flutter app (Kotlin, Jetpack Compose, applicationId `com.alphawavesystems.probe_test_app_native`) built to exercise FlutterProbe's **native verb family** (`tap native`, `type native`, `see native`, `don't see native`) against a real non-Flutter app. Every interactive/assertable view carries a Compose `testTag` that mirrors the Flutter app's `ValueKey` names 1:1 and is surfaced as a uiautomator `resource-id` (`testTagsAsResourceId`), so the same element vocabulary works across both apps. The Biometric Login screen uses the real Android `BiometricPrompt`, driven by `biometric match` / `biometric no match`. Its native-verb suite lives in [`native/android-kotlin/probe-tests/`](native/android-kotlin/probe-tests/) — see the suite header for the run pattern (native verbs are CLI-side; a ProbeAgent host app holds the session while this app is foregrounded).
+
+```bash
+cd native/android-kotlin
+JAVA_HOME=$(/usr/libexec/java_home -v 21) ./gradlew assembleDebug
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+adb shell am start -n com.alphawavesystems.probe_test_app_native/.MainActivity
 ```
 
 ## Running Tests
