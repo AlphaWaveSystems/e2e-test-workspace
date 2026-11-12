@@ -18,14 +18,17 @@ class ItemListPage extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(16),
-                child: TextField(
-                  key: const ValueKey('search_field'),
-                  decoration: const InputDecoration(
-                    hintText: 'Search items...',
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(),
+                child: Semantics(
+                  identifier: 'search_field',
+                  child: TextField(
+                    key: const ValueKey('search_field'),
+                    decoration: const InputDecoration(
+                      hintText: 'Search items...',
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: provider.search,
                   ),
-                  onChanged: provider.search,
                 ),
               ),
               Expanded(
@@ -33,56 +36,71 @@ class ItemListPage extends StatelessWidget {
                     ? const Center(child: CircularProgressIndicator())
                     : provider.items.isEmpty
                         ? Center(
-                            child: Text(
-                              'No items found',
-                              key: const ValueKey('empty_state'),
-                              style: Theme.of(context).textTheme.titleMedium,
+                            child: Semantics(
+                              identifier: 'empty_state',
+                              child: Text(
+                                'No items found',
+                                key: const ValueKey('empty_state'),
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
                             ),
                           )
-                        : ListView.builder(
-                            key: const ValueKey('scrollable_list'),
-                            itemCount: provider.items.length,
-                            itemBuilder: (context, index) {
-                              final item = provider.items[index];
-                              return Dismissible(
-                                key: ValueKey('dismissible_${item.id}'),
-                                direction: DismissDirection.endToStart,
-                                background: Container(
-                                  color: Colors.red,
-                                  alignment: Alignment.centerRight,
-                                  padding: const EdgeInsets.only(right: 16),
-                                  child: const Icon(
-                                    Icons.delete,
-                                    color: Colors.white,
+                        : Semantics(
+                            identifier: 'scrollable_list',
+                            child: ListView.builder(
+                              key: const ValueKey('scrollable_list'),
+                              itemCount: provider.items.length,
+                              itemBuilder: (context, index) {
+                                final item = provider.items[index];
+                                return Semantics(
+                                  identifier: 'dismissible_${item.id}',
+                                  child: Dismissible(
+                                    key: ValueKey('dismissible_${item.id}'),
+                                    direction: DismissDirection.endToStart,
+                                    background: Container(
+                                      color: Colors.red,
+                                      alignment: Alignment.centerRight,
+                                      padding: const EdgeInsets.only(right: 16),
+                                      child: const Icon(
+                                        Icons.delete,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    onDismissed: (_) {
+                                      provider.deleteItem(item.id);
+                                    },
+                                    child: Semantics(
+                                      identifier: 'list_item_$index',
+                                      child: ListTile(
+                                        key: ValueKey('list_item_$index'),
+                                        title: Text(item.title),
+                                        subtitle: Text(item.description),
+                                        leading: CircleAvatar(
+                                          child: Text('${item.id}'),
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                onDismissed: (_) {
-                                  provider.deleteItem(item.id);
-                                },
-                                child: ListTile(
-                                  key: ValueKey('list_item_$index'),
-                                  title: Text(item.title),
-                                  subtitle: Text(item.description),
-                                  leading: CircleAvatar(
-                                    child: Text('${item.id}'),
-                                  ),
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
                           ),
               ),
             ],
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        key: const ValueKey('fab_add'),
-        onPressed: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Add item tapped')),
-          );
-        },
-        child: const Icon(Icons.add),
+      floatingActionButton: Semantics(
+        identifier: 'fab_add',
+        child: FloatingActionButton(
+          key: const ValueKey('fab_add'),
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Add item tapped')),
+            );
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

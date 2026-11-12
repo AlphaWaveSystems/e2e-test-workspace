@@ -17,22 +17,28 @@ class DashboardPage extends StatelessWidget {
           appBar: AppBar(
             title: const Text('Dashboard'),
             actions: [
-              IconButton(
-                key: const ValueKey('refresh_button'),
-                icon: const Icon(Icons.refresh),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Refreshed')),
-                  );
-                },
+              Semantics(
+                identifier: 'refresh_button',
+                child: IconButton(
+                  key: const ValueKey('refresh_button'),
+                  icon: const Icon(Icons.refresh),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Refreshed')),
+                    );
+                  },
+                ),
               ),
-              IconButton(
-                key: const ValueKey('logout_button'),
-                icon: const Icon(Icons.logout),
-                onPressed: () {
-                  auth.logout();
-                  Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route) => false);
-                },
+              Semantics(
+                identifier: 'logout_button',
+                child: IconButton(
+                  key: const ValueKey('logout_button'),
+                  icon: const Icon(Icons.logout),
+                  onPressed: () {
+                    auth.logout();
+                    Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route) => false);
+                  },
+                ),
               ),
             ],
           ),
@@ -45,28 +51,31 @@ class DashboardPage extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               children: [
                 // Welcome banner
-                Card(
-                  key: const ValueKey('welcome_banner'),
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Welcome, $userName',
-                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimaryContainer,
-                              ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Here is your dashboard overview',
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onPrimaryContainer.withValues(alpha: 0.7),
+                Semantics(
+                  identifier: 'welcome_banner',
+                  child: Card(
+                    key: const ValueKey('welcome_banner'),
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Welcome, $userName',
+                            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                                ),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 4),
+                          Text(
+                            'Here is your dashboard overview',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onPrimaryContainer.withValues(alpha: 0.7),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -76,29 +85,38 @@ class DashboardPage extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: _StatCard(
-                        key: const ValueKey('stat_card_1'),
-                        title: 'Tests Run',
-                        value: '42',
-                        icon: Icons.check_circle,
+                      child: Semantics(
+                        identifier: 'stat_card_1',
+                        child: _StatCard(
+                          key: const ValueKey('stat_card_1'),
+                          title: 'Tests Run',
+                          value: '42',
+                          icon: Icons.check_circle,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: _StatCard(
-                        key: const ValueKey('stat_card_2'),
-                        title: 'Passed',
-                        value: '38',
-                        icon: Icons.thumb_up,
+                      child: Semantics(
+                        identifier: 'stat_card_2',
+                        child: _StatCard(
+                          key: const ValueKey('stat_card_2'),
+                          title: 'Passed',
+                          value: '38',
+                          icon: Icons.thumb_up,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: _StatCard(
-                        key: const ValueKey('stat_card_3'),
-                        title: 'Failed',
-                        value: '4',
-                        icon: Icons.error_outline,
+                      child: Semantics(
+                        identifier: 'stat_card_3',
+                        child: _StatCard(
+                          key: const ValueKey('stat_card_3'),
+                          title: 'Failed',
+                          value: '4',
+                          icon: Icons.error_outline,
+                        ),
                       ),
                     ),
                   ],
@@ -114,19 +132,22 @@ class DashboardPage extends StatelessWidget {
 
                 // Item list
                 ...List.generate(10, (index) {
-                  return ListTile(
-                    key: ValueKey('item_$index'),
-                    leading: CircleAvatar(
-                      child: Text('${index + 1}'),
+                  return Semantics(
+                    identifier: 'item_$index',
+                    child: ListTile(
+                      key: ValueKey('item_$index'),
+                      leading: CircleAvatar(
+                        child: Text('${index + 1}'),
+                      ),
+                      title: Text('Item ${index + 1}'),
+                      subtitle: Text('Description for item ${index + 1}'),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Tapped item ${index + 1}')),
+                        );
+                      },
                     ),
-                    title: Text('Item ${index + 1}'),
-                    subtitle: Text('Description for item ${index + 1}'),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Tapped item ${index + 1}')),
-                      );
-                    },
                   );
                 }),
               ],

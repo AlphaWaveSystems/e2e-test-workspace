@@ -1,0 +1,13 @@
+project:
+  name: "FlutterProbe E2E Test App (Android)"
+  app: com.alphawavesystems.probe_test_app
+defaults:
+  platform: android
+  timeout: 30s
+  screenshots: on_failure
+  retry_failed_tests: 1
+agent:
+  port: 48686
+  dial_timeout: 30s
+recipes_folder: tests/recipes
+reports_folder: reports

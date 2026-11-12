@@ -39,49 +39,64 @@ class _DevicePageState extends State<DevicePage> {
             const Text('Permissions',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             const SizedBox(height: 12),
-            ElevatedButton.icon(
-              key: const ValueKey('request_camera'),
-              onPressed: () {
-                setState(() {
-                  _cameraStatus = 'Granted';
-                });
-              },
-              icon: const Icon(Icons.camera_alt),
-              label: const Text('Request Camera'),
+            Semantics(
+              identifier: 'request_camera',
+              child: ElevatedButton.icon(
+                key: const ValueKey('request_camera'),
+                onPressed: () {
+                  setState(() {
+                    _cameraStatus = 'Granted';
+                  });
+                },
+                icon: const Icon(Icons.camera_alt),
+                label: const Text('Request Camera'),
+              ),
             ),
             const SizedBox(height: 4),
-            Text(
-              'Camera: $_cameraStatus',
-              key: const ValueKey('camera_status'),
+            Semantics(
+              identifier: 'camera_status',
+              child: Text(
+                'Camera: $_cameraStatus',
+                key: const ValueKey('camera_status'),
+              ),
             ),
             const SizedBox(height: 12),
-            ElevatedButton.icon(
-              key: const ValueKey('request_location'),
-              onPressed: () {
-                setState(() {
-                  _locationStatus = 'Granted';
-                  _gpsDisplay = 'Location: 37.7749, -122.4194';
-                });
-              },
-              icon: const Icon(Icons.location_on),
-              label: const Text('Request Location'),
+            Semantics(
+              identifier: 'request_location',
+              child: ElevatedButton.icon(
+                key: const ValueKey('request_location'),
+                onPressed: () {
+                  setState(() {
+                    _locationStatus = 'Granted';
+                    _gpsDisplay = 'Location: 37.7749, -122.4194';
+                  });
+                },
+                icon: const Icon(Icons.location_on),
+                label: const Text('Request Location'),
+              ),
             ),
             const SizedBox(height: 4),
-            Text(
-              'Location: $_locationStatus',
-              key: const ValueKey('location_status'),
+            Semantics(
+              identifier: 'location_status',
+              child: Text(
+                'Location: $_locationStatus',
+                key: const ValueKey('location_status'),
+              ),
             ),
             const SizedBox(height: 12),
-            ElevatedButton.icon(
-              key: const ValueKey('request_notifications'),
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                      content: Text('Notification permission requested')),
-                );
-              },
-              icon: const Icon(Icons.notifications),
-              label: const Text('Request Notifications'),
+            Semantics(
+              identifier: 'request_notifications',
+              child: ElevatedButton.icon(
+                key: const ValueKey('request_notifications'),
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text('Notification permission requested')),
+                  );
+                },
+                icon: const Icon(Icons.notifications),
+                label: const Text('Request Notifications'),
+              ),
             ),
             const SizedBox(height: 24),
 
@@ -89,10 +104,13 @@ class _DevicePageState extends State<DevicePage> {
             const Text('GPS',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             const SizedBox(height: 8),
-            Text(
-              _gpsDisplay,
-              key: const ValueKey('gps_display'),
-              style: const TextStyle(fontSize: 16),
+            Semantics(
+              identifier: 'gps_display',
+              child: Text(
+                _gpsDisplay,
+                key: const ValueKey('gps_display'),
+                style: const TextStyle(fontSize: 16),
+              ),
             ),
             const SizedBox(height: 24),
 
@@ -100,16 +118,19 @@ class _DevicePageState extends State<DevicePage> {
             const Text('Browser',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             const SizedBox(height: 8),
-            ElevatedButton.icon(
-              key: const ValueKey('open_browser'),
-              onPressed: () async {
-                final url = Uri.parse('https://www.google.com');
-                if (await canLaunchUrl(url)) {
-                  await launchUrl(url, mode: LaunchMode.externalApplication);
-                }
-              },
-              icon: const Icon(Icons.open_in_browser),
-              label: const Text('Open Website'),
+            Semantics(
+              identifier: 'open_browser',
+              child: ElevatedButton.icon(
+                key: const ValueKey('open_browser'),
+                onPressed: () async {
+                  final url = Uri.parse('https://www.google.com');
+                  if (await canLaunchUrl(url)) {
+                    await launchUrl(url, mode: LaunchMode.externalApplication);
+                  }
+                },
+                icon: const Icon(Icons.open_in_browser),
+                label: const Text('Open Website'),
+              ),
             ),
             const SizedBox(height: 24),
 
@@ -117,31 +138,40 @@ class _DevicePageState extends State<DevicePage> {
             const Text('Clipboard',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             const SizedBox(height: 8),
-            TextField(
-              key: const ValueKey('copy_text_field'),
-              controller: _copyController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Text to copy',
+            Semantics(
+              identifier: 'copy_text_field',
+              child: TextField(
+                key: const ValueKey('copy_text_field'),
+                controller: _copyController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Text to copy',
+                ),
               ),
             ),
             const SizedBox(height: 8),
-            ElevatedButton.icon(
-              key: const ValueKey('paste_button'),
-              onPressed: () async {
-                final data = await Clipboard.getData(Clipboard.kTextPlain);
-                setState(() {
-                  _pastedText = data?.text ?? 'Nothing in clipboard';
-                });
-              },
-              icon: const Icon(Icons.paste),
-              label: const Text('Paste'),
+            Semantics(
+              identifier: 'paste_button',
+              child: ElevatedButton.icon(
+                key: const ValueKey('paste_button'),
+                onPressed: () async {
+                  final data = await Clipboard.getData(Clipboard.kTextPlain);
+                  setState(() {
+                    _pastedText = data?.text ?? 'Nothing in clipboard';
+                  });
+                },
+                icon: const Icon(Icons.paste),
+                label: const Text('Paste'),
+              ),
             ),
             const SizedBox(height: 8),
-            Text(
-              _pastedText,
-              key: const ValueKey('pasted_text'),
-              style: const TextStyle(fontSize: 14),
+            Semantics(
+              identifier: 'pasted_text',
+              child: Text(
+                _pastedText,
+                key: const ValueKey('pasted_text'),
+                style: const TextStyle(fontSize: 14),
+              ),
             ),
           ],
         ),

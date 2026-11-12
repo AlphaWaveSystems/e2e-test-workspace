@@ -1,0 +1,17 @@
+# Items list driven through the native accessibility tree — Android only.
+# See home_tabs.probe for background on the ValueKey + Semantics identifier pairing.
+
+test "native: items list search filters via native type"
+  @native
+  restart the app
+  wait 5 seconds
+  tap native "nav_items"
+  wait 2 seconds
+  see native "search_field"
+  see native "fab_add"
+  see native "list_item_0"
+  type native "zzz no such item" into "search_field"
+  wait 1 seconds
+  see native "empty_state"
+  don't see native "list_item_0"
+  see "No items found"

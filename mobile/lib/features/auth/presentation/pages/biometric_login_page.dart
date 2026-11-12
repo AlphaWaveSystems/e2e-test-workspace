@@ -84,42 +84,54 @@ class _BiometricLoginPageState extends State<BiometricLoginPage> {
             const SizedBox(height: 48),
             const Icon(Icons.face_retouching_natural, size: 96),
             const SizedBox(height: 16),
-            const Text(
-              'Use your face or fingerprint to sign in.',
-              key: ValueKey('biometric_prompt_intro'),
-              textAlign: TextAlign.center,
+            Semantics(
+              identifier: 'biometric_prompt_intro',
+              child: const Text(
+                'Use your face or fingerprint to sign in.',
+                key: ValueKey('biometric_prompt_intro'),
+                textAlign: TextAlign.center,
+              ),
             ),
             const SizedBox(height: 32),
-            ElevatedButton.icon(
-              key: const ValueKey('sign_in_with_face_id'),
-              onPressed: _busy ? null : _signInWithBiometrics,
-              icon: const Icon(Icons.face),
-              label: const Text('Sign in with Face ID'),
+            Semantics(
+              identifier: 'sign_in_with_face_id',
+              child: ElevatedButton.icon(
+                key: const ValueKey('sign_in_with_face_id'),
+                onPressed: _busy ? null : _signInWithBiometrics,
+                icon: const Icon(Icons.face),
+                label: const Text('Sign in with Face ID'),
+              ),
             ),
             if (_busy) ...[
               const SizedBox(height: 24),
-              const Center(
+              Center(
                 child: Padding(
-                  padding: EdgeInsets.all(8),
-                  child: CircularProgressIndicator(
-                    key: ValueKey('biometric_progress'),
+                  padding: const EdgeInsets.all(8),
+                  child: Semantics(
+                    identifier: 'biometric_progress',
+                    child: const CircularProgressIndicator(
+                      key: ValueKey('biometric_progress'),
+                    ),
                   ),
                 ),
               ),
             ],
             if (_error != null) ...[
               const SizedBox(height: 24),
-              Container(
-                key: const ValueKey('biometric_error_banner'),
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.red.shade50,
-                  border: Border.all(color: Colors.red.shade200),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  _error!,
-                  style: TextStyle(color: Colors.red.shade800),
+              Semantics(
+                identifier: 'biometric_error_banner',
+                child: Container(
+                  key: const ValueKey('biometric_error_banner'),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    border: Border.all(color: Colors.red.shade200),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    _error!,
+                    style: TextStyle(color: Colors.red.shade800),
+                  ),
                 ),
               ),
             ],

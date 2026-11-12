@@ -58,16 +58,19 @@ class _DynamicPageState extends State<DynamicPage>
   void _showErrorDialog() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        key: const ValueKey('error_dialog'),
-        title: const Text('Error'),
-        content: const Text('Something went wrong!'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('OK'),
-          ),
-        ],
+      builder: (context) => Semantics(
+        identifier: 'error_dialog',
+        child: AlertDialog(
+          key: const ValueKey('error_dialog'),
+          title: const Text('Error'),
+          content: const Text('Something went wrong!'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -85,22 +88,25 @@ class _DynamicPageState extends State<DynamicPage>
           children: [
             // A/B Banner
             if (_showAbBanner)
-              Container(
-                key: const ValueKey('ab_banner'),
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                margin: const EdgeInsets.only(bottom: 16),
-                decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Text(
-                  'Special Offer!',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+              Semantics(
+                identifier: 'ab_banner',
+                child: Container(
+                  key: const ValueKey('ab_banner'),
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  textAlign: TextAlign.center,
+                  child: const Text(
+                    'Special Offer!',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
 
@@ -109,13 +115,16 @@ class _DynamicPageState extends State<DynamicPage>
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             const SizedBox(height: 8),
             Center(
-              child: Text(
-                '$_countdown',
-                key: const ValueKey('countdown'),
-                style: TextStyle(
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold,
-                  color: _countdown <= 3 ? Colors.red : Colors.black,
+              child: Semantics(
+                identifier: 'countdown',
+                child: Text(
+                  '$_countdown',
+                  key: const ValueKey('countdown'),
+                  style: TextStyle(
+                    fontSize: 48,
+                    fontWeight: FontWeight.bold,
+                    color: _countdown <= 3 ? Colors.red : Colors.black,
+                  ),
                 ),
               ),
             ),
@@ -127,18 +136,21 @@ class _DynamicPageState extends State<DynamicPage>
             const SizedBox(height: 8),
             FadeTransition(
               opacity: _fadeAnimation,
-              child: Container(
-                key: const ValueKey('fade_widget'),
-                width: double.infinity,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: Colors.teal,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                alignment: Alignment.center,
-                child: const Text(
-                  'I faded in!',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+              child: Semantics(
+                identifier: 'fade_widget',
+                child: Container(
+                  key: const ValueKey('fade_widget'),
+                  width: double.infinity,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Colors.teal,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  alignment: Alignment.center,
+                  child: const Text(
+                    'I faded in!',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
                 ),
               ),
             ),
@@ -148,14 +160,17 @@ class _DynamicPageState extends State<DynamicPage>
             const Text('Error Handling',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             const SizedBox(height: 8),
-            ElevatedButton(
-              key: const ValueKey('trigger_error'),
-              onPressed: _showErrorDialog,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                foregroundColor: Colors.white,
+            Semantics(
+              identifier: 'trigger_error',
+              child: ElevatedButton(
+                key: const ValueKey('trigger_error'),
+                onPressed: _showErrorDialog,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text('Trigger Error'),
               ),
-              child: const Text('Trigger Error'),
             ),
             const SizedBox(height: 24),
 
@@ -163,20 +178,26 @@ class _DynamicPageState extends State<DynamicPage>
             const Text('Repeatable Action',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             const SizedBox(height: 8),
-            ElevatedButton(
-              key: const ValueKey('repeat_action'),
-              onPressed: () {
-                setState(() {
-                  _actionCount++;
-                });
-              },
-              child: const Text('Tap Me'),
+            Semantics(
+              identifier: 'repeat_action',
+              child: ElevatedButton(
+                key: const ValueKey('repeat_action'),
+                onPressed: () {
+                  setState(() {
+                    _actionCount++;
+                  });
+                },
+                child: const Text('Tap Me'),
+              ),
             ),
             const SizedBox(height: 8),
-            Text(
-              'Tapped: $_actionCount',
-              key: const ValueKey('action_count'),
-              style: const TextStyle(fontSize: 16),
+            Semantics(
+              identifier: 'action_count',
+              child: Text(
+                'Tapped: $_actionCount',
+                key: const ValueKey('action_count'),
+                style: const TextStyle(fontSize: 16),
+              ),
             ),
           ],
         ),
