@@ -1,4 +1,5 @@
 test "run inline dart code"
   restart the app
   wait 5 seconds
-  run dart: print('hello from dart')
+  run dart:
+    print('hello from dart')
