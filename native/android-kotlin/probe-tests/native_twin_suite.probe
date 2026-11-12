@@ -8,13 +8,38 @@
 #      and connected — probe's session lives there; the native verb family
 #      is CLI-side (uiautomator via adb) and never touches the Dart agent.
 #   2. Bring this native app to the foreground BEFORE the run, at the Home
-#      screen:
+#      screen. Start from a fresh process (force-stop it first): a running app
+#      keeps state between runs, and the item list search filter left by one
+#      run makes the next run's item list test fail.
+#        adb shell am force-stop com.alphawavesystems.probe_test_app_native
 #        adb shell am start -n com.alphawavesystems.probe_test_app_native/.MainActivity
-#   3. No before-each restart hook — restarting would foreground the host
-#      app and hide the native UI under test.
-#   4. Biometric tests: pre-enroll fingerprint ID 1 in the emulator's
-#      Settings once (`enroll biometric` is a no-op on Android); `biometric
-#      match` / `biometric no match` drive `adb emu finger touch`.
+#   3. No restart hook — restarting would foreground the host app and hide
+#      the native UI under test. Between attempts the `on failure` hook below
+#      taps back, so a retry starts at Home, not on the screen the failed
+#      attempt left.
+#   4. Biometric tests need one fingerprint enrolled on the emulator. This is
+#      one-time setup, not per run: `enroll biometric` is a no-op on Android,
+#      and without an enrolled fingerprint the sign-in button shows
+#      "Authentication failed" with no system prompt. Steps used on
+#      ProbeRepro-API35 (a throwaway emulator; the lock PIN is a test value):
+#        adb -s <serial> shell locksettings set-pin 2468
+#        adb -s <serial> shell am start -a android.settings.BIOMETRIC_ENROLL
+#          enter the PIN, tap I AGREE, touch the sensor, then tap DONE
+#        adb -s <serial> emu finger touch 1     (repeat until "Fingerprint added")
+#        adb -s <serial> shell dumpsys fingerprint    (one print is listed)
+#      `biometric match` / `biometric no match` drive `adb emu finger touch`.
+#
+# Tested run (CLI built from flutter-probe origin/main edfe69c, VERSION 0.26.1):
+#   timeout 360 <probe> test native/android-kotlin/probe-tests/native_twin_suite.probe \
+#     --config <config> --device emulator-5590 -v
+#   <config> is not committed. It sets platform android, app
+#   com.alphawavesystems.probe_test_app, and agent.port 48800 (any port other
+#   than 48686). It needs one forward, tcp:48800 tcp:48800, on the named
+#   emulator only (ProbeRepro-API35 is emulator-5590).
+#   With the repo's default config (platform ios, agent port 48686) this run was
+#   not verified.
+#   Result at 0e313047: 12 of 12 passed in each run. The hang reported in review
+#   was not reproduced in 3 of 3 runs at 0e313047.
 #
 # Element queries use the same names as the Flutter app's ValueKeys — the
 # Compose app surfaces every Modifier.testTag as a uiautomator resource-id
@@ -22,6 +47,12 @@
 # `native` queries here. Matching is case-insensitive substring over text
 # and resource-id, and uiautomator only sees on-screen elements, so tests
 # stick to elements visible without scrolling (there is no `scroll native`).
+
+# Runs after each failed attempt, before the retry. Every native screen except
+# Home has a back button, so this returns the app to Home. On Home there is no
+# back button: the step fails, and the failure is ignored (hooks are best-effort).
+on failure
+  tap native "back_button"
 
 test "home shell: tabs and nav list"
   see native "FlutterProbe Test App"
@@ -200,11 +231,13 @@ test "biometric: no match shows error, match reaches dashboard"
   see native "biometric_prompt_intro"
   tap native "sign_in_with_face_id"
   wait 2 seconds
+  see native "Sign in to your account"
   biometric no match
   wait 2 seconds
   see native "Authentication failed"
   tap native "sign_in_with_face_id"
   wait 2 seconds
+  see native "Sign in to your account"
   biometric match
   wait 3 seconds
   see native "Welcome, Biometric User"
