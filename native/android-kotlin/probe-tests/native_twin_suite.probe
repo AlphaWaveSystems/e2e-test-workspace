@@ -29,6 +29,18 @@
 #        adb -s <serial> shell dumpsys fingerprint    (one print is listed)
 #      `biometric match` / `biometric no match` drive `adb emu finger touch`.
 #
+# Tested run (CLI built from flutter-probe origin/main edfe69c, VERSION 0.26.1):
+#   timeout 360 <probe> test native/android-kotlin/probe-tests/native_twin_suite.probe \
+#     --config <config> --device emulator-5590 -v
+#   <config> is not committed. It sets platform android, app
+#   com.alphawavesystems.probe_test_app, and agent.port 48800 (any port other
+#   than 48686). It needs one forward, tcp:48800 tcp:48800, on the named
+#   emulator only (ProbeRepro-API35 is emulator-5590).
+#   With the repo's default config (platform ios, agent port 48686) this run was
+#   not verified.
+#   Result at 0e313047: 12 of 12 passed in each run. The hang reported in review
+#   was not reproduced in 3 of 3 runs at 0e313047.
+#
 # Element queries use the same names as the Flutter app's ValueKeys — the
 # Compose app surfaces every Modifier.testTag as a uiautomator resource-id
 # (testTagsAsResourceId), so `#key` selectors in Flutter tests map 1:1 to
